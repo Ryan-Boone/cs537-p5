@@ -47,6 +47,13 @@ trap(struct trapframe *tf)
   }
 
   switch(tf->trapno){
+  case T_PGFLT:
+    if (handle_wmap_fault(myproc(), rcr2()) > 0){
+      break;//successfully handled page fault 
+    }
+    cprintf("Sefmentation fault \n");
+    myproc() -> killed = 1;
+    break;
   case T_IRQ0 + IRQ_TIMER:
     if(cpuid() == 0){
       acquire(&tickslock);

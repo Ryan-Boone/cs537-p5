@@ -6,6 +6,8 @@
 #include "x86.h"
 #include "proc.h"
 #include "spinlock.h"
+#include "wmap.h"
+
 
 struct {
   struct spinlock lock;
@@ -112,6 +114,10 @@ found:
   memset(p->context, 0, sizeof *p->context);
   p->context->eip = (uint)forkret;
 
+  p-> num_wmaps = 0;
+  for(int i = 0; i < 16; i++){
+    p->wmaps[i].allocated = 0;
+  }
   return p;
 }
 

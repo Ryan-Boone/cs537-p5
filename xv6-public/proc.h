@@ -49,6 +49,8 @@ struct proc {
   struct file *ofile[NOFILE];  // Open files
   struct inode *cwd;           // Current directory
   char name[16];               // Process name (debugging)
+  struct wmap_struct wmaps[16];  // Array of memory mappings
+  int num_wmaps;                 // Number of active mappings
 };
 
 // Process memory is laid out contiguously, low addresses first:
@@ -56,3 +58,13 @@ struct proc {
 //   original data and bss
 //   fixed-size stack
 //   expandable heap
+
+struct wmap_struct {
+    uint addr;           // Starting virtual address
+    int length;         // Length of mapping
+    int flags;          // Mapping flags (MAP_SHARED, etc)
+    int fd;             // File descriptor (-1 for anonymous)
+    struct file *f;     // Pointer to file struct (NULL for anonymous)
+    int allocated;      // Is this slot in use?
+    uint num_pages;     // Number of pages mapped
+};
