@@ -10,6 +10,114 @@
 #include "fs.h"
 #include "file.h"
 
+// Helper function to find a mapping by address
+static struct wmap_struct*
+find_mapping(struct proc *p, uint addr)
+{
+    int i;
+    for(i = 0; i < MAX_WMMAP_INFO; i++) {
+        if(p->wmaps[i].allocated && p->wmaps[i].addr == addr) {
+            return &p->wmaps[i];
+        }
+    }
+    return 0;
+}
+
+// Helper function to write pages back to file
+static int
+write_pages_to_file(struct wmap_struct *wmap)
+{
+    struct file *f = wmap->f;
+    uint addr;
+    int bytes_written = 0;
+
+    if(!f || !f->ip)
+        return -1;
+
+    // Write each mapped page back to the file
+    for(addr = wmap->addr; addr < wmap->addr + wmap->length; addr += PGSIZE) {
+        pte_t *pte = walkpgdir(myproc()->pgdir, (char*)addr, 0);
+        if(pte && (*pte & PTE_P) && (*pte & PTE_W)) {  // If page is present and writable
+            char *va = P2V(PTE_ADDR(*pte));
+            int n;
+            
+            begin_op();
+            ilock(f->ip);
+            
+            // Write the page contents back to file
+            n = writei(f->ip, va, bytes_written, PGSIZE);
+            
+            iunlock(f->ip);
+            end_op();
+            
+            if(n < 0)
+                return -1;
+                
+            bytes_written += n;
+        }
+    }
+    return SUCCESS;
+}
+
+int
+sys_wunmap(void)
+{
+    uint addr;
+    struct proc *p = myproc();
+    struct wmap_struct *wmap;
+
+    // Get the address argument
+    if(argint(0, (int*)&addr) < 0)
+        return FAILED;
+
+    // Address must be page-aligned
+    if(addr % PGSIZE != 0)
+        return FAILED;
+
+    // Find the mapping
+    wmap = find_mapping(p, addr);
+    if(!wmap)
+        return FAILED;
+
+    // If this is a file mapping and MAP_SHARED is set, write changes back
+    if(wmap->f && (wmap->flags & MAP_SHARED)) {
+        if(write_pages_to_file(wmap) < 0)
+            return FAILED;
+    }
+
+    // Free all allocated pages in this mapping
+    uint curr_addr;
+    for(curr_addr = wmap->addr; 
+        curr_addr < wmap->addr + wmap->length; 
+        curr_addr += PGSIZE) {
+        
+        pte_t *pte = walkpgdir(p->pgdir, (char*)curr_addr, 0);
+        if(pte && (*pte & PTE_P)) {
+            char *v = P2V(PTE_ADDR(*pte));
+            kfree(v);
+            *pte = 0;  // Clear the PTE
+        }
+    }
+
+    // If this was a file mapping, close the file
+    if(wmap->f) {
+        fileclose(wmap->f);
+        wmap->f = 0;
+    }
+
+    // Clear the mapping
+    wmap->allocated = 0;
+    wmap->addr = 0;
+    wmap->length = 0;
+    wmap->flags = 0;
+    wmap->fd = -1;
+    wmap->num_pages = 0;
+    
+    p->num_wmaps--;
+
+    return SUCCESS;
+}
+
 // Helper function to check if address range is free
 static int
 is_range_free(struct proc *p, uint addr, int length)
