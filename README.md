@@ -3,6 +3,19 @@ title: CS 537 Project 5
 layout: default
 ---
 
+<mark> 
+Update
+</mark>
+
+* Nov 16: submit `xv6-public` ~~solution~~ folder
+* Nov 15: xv6.py updated, runtests.py updated
+* Nov 14: test 18 updated, test.py updated
+* Nov 13: test 21 updated
+
+<mark> 
+End Update
+</mark>
+
 # CS537 Fall 2024, Project 5
 
 ## Administrivia 
@@ -12,7 +25,7 @@ layout: default
 - This project is to be done on the [lab machines](https://csl.cs.wisc.edu/docs/csl/2012-08-16-instructional-facilities/), so you can learn more about programming in C on a typical UNIX-based platform (Linux).
   
 - **Handing it in**:
-  -  Copy the whole project, including solution and tests folder, to ~cs537-1/handin/login/p5 where login is your CS login.  
+  -  Copy the whole project, including `xv6-public` ~~solution~~ and `tests` folder, to ~cs537-1/handin/login/p5 where login is your CS login.  
   -  Be sure to `make clean` before handing in your solution. 
   -  Only one person from the group needs to submit the project.
 - **Slip Days**: 
@@ -115,7 +128,7 @@ Now let's continue with our example. We need two physical pages because the virt
 ```c 
 char *mem = kalloc()
 ```
-and `mem` is the starting physical address of a free page we can use.
+and `mem` is the starting virtual address of a free page we can use.
 
 Note that we haven't actually *mapped* anything yet. We have just allocated virtual and physical addresses. To do the mapping, we need to place an entry in the page table. The `mappages` function does exactly that. In this case, the call to `mappages` would be something like the following:
 ```c
@@ -236,7 +249,7 @@ int getwmapinfo(struct wmapinfo *wminfo);
 * `wminfo`: A pointer to `struct wmapinfo` that will be filled by the system call.
 
 Add a new system call `getwmapinfo` to retrieve information about the process address space by populating `struct wmapinfo`. 
-This system call should calculate the current number of memory maps (mmaps) in the process's address space and store the result in `total_mmaps`. It should also populate `addr[MAX_WMMAP_INFO]` and `length[MAX_WMAP_INFO]` with the address and length of each wmap. You can expect that the number of mmaps in the current process will not exceed `MAX_UPAGE_INFO`. The `n_loaded_pages[MAX_WMAP_INFO]` should store how many pages have been physically allocated for each wmap (corresponding index of `addr` and `length` arrays). This field should reflect lazy allocation.
+This system call should calculate the current number of memory maps (mmaps) in the process's address space and store the result in `total_mmaps`. It should also populate `addr[MAX_WMMAP_INFO]` and `length[MAX_WMAP_INFO]` with the address and length of each wmap. You can expect that the number of mmaps in the current process will not exceed `MAX_WMAP_INFO`. The `n_loaded_pages[MAX_WMAP_INFO]` should store how many pages have been physically allocated for each wmap (corresponding index of `addr` and `length` arrays). This field should reflect lazy allocation.
 
 ## Return Values
 `SUCCESS` and `FAILED` are defined in `wmap.h` to be 0 and -1, respectively (see *[Hints](#hints)*).

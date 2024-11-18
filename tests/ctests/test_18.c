@@ -12,7 +12,7 @@ int main() {
     validate_initial_state();
 
     char *filename = "big.txt";
-    int N_PAGES = 3;
+    int N_PAGES = 2;
     char val = 113;
     int filelength = create_big_file(filename, N_PAGES, val);
 

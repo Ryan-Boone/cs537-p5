@@ -82,6 +82,9 @@ class Test(object):
         self.state = Test.FAILED
         if reason is not None:
             self.notices.append(reason)
+        # Fariha: clean up if failed
+        print("\nCleaning up after failure")
+        self.clean(["xv6.img", "fs.img"])
 
     def warn(self, reason):
         self.notices.append(reason)

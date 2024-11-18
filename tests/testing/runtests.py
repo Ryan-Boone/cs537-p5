@@ -222,6 +222,7 @@ def main(
             result.logfd = log
             result.after()
         except Exception as e:
+            log.write("Exception in after method: " + str(e) + "\n")
             (type, value, tb) = sys.exc_info()
             traceback.print_exception(type, value, tb)
 
@@ -229,7 +230,7 @@ def main(
         total_points += test.points()
 
         log.flush()
-        if not result.is_failed():
+        if result.is_passed():
             points += test.points()
             tests_passed += 1
 
@@ -237,7 +238,7 @@ def main(
         log.write("\n")
         log.write(str(result) + "\n")
 
-        if result.is_failed() and not options._continue or quitnow:
+        if not result.is_passed() and not options._continue or quitnow:
             log.write("Skipped " + str(len(_list) - len(ran)) + " tests.\n")
             log.write(
                 "To keep testing after failing a test, use flag '-c' or '--continue'\n"

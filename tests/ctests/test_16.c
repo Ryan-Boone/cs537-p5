@@ -94,7 +94,7 @@ int main() {
         }
         for (int j = 0; j < bufflen; j++) {
             if (buff[j] != newval) {
-                printf(1, "file %s offset %d = %d, expected\n", filename, i + j,
+                printf(1, "file %s offset %d = %d, expected %d\n", filename, i + j,
                        buff[j], newval);
                 failed();
             }

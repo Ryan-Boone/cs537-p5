@@ -231,7 +231,7 @@ class test21(Xv6Test):
     header = "ctests/tester.h"
     make_qemu_args = "CPUS=1"
     point_value = 1
-    success_pattern = "--kill proc"
+    success_pattern = "Segmentation Fault"
     failure_pattern = "PASSED"
 
 

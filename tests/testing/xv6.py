@@ -94,7 +94,7 @@ class Xv6Test(BuildTest, Test):
         matched_actions = [action for pattern, action in patterns.items() if re.search(pattern, captured_text)]
         # If all match is SUCCESS_ACTION, then the test passed
         # Otherwise, the test failed
-        if matched_actions.count(SUCCESS_ACTION) == len(matched_actions):
+        if  len(matched_actions) > 0 and matched_actions.count(SUCCESS_ACTION) == len(matched_actions):
             self.done()
         else:
             self.fail(matched_actions[0] if matched_actions else "tester failed")
