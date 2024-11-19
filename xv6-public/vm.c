@@ -32,7 +32,7 @@ seginit(void)
 // Return the address of the PTE in page table pgdir
 // that corresponds to virtual address va.  If alloc!=0,
 // create any required page table pages.
-pte_t *
+static pte_t *
 walkpgdir(pde_t *pgdir, const void *va, int alloc)
 {
   pde_t *pde;
@@ -331,21 +331,6 @@ copyuvm(pde_t *pgdir, uint sz)
       panic("copyuvm: page not present");
     pa = PTE_ADDR(*pte);
     flags = PTE_FLAGS(*pte);
-
-    // If page was writable, mark it COW
-    if(flags & PTE_W) {
-      flags &= ~PTE_W;  // Remove write permission
-      flags |= PTE_COW;  // Mark as copy-on-write
-      flags |= PTE_W_OLD;  // Remember it was writable
-      *pte = pa | flags;  // Update parent's PTE
-    }
-    
-    // Share the page with child
-    if(mappages(d, (void*)i, PGSIZE, pa, flags) < 0)
-      goto bad;
-      
-    inc_refcount((char*)P2V(pa));
-    
     if((mem = kalloc()) == 0)
       goto bad;
     memmove(mem, (char*)P2V(pa), PGSIZE);

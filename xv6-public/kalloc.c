@@ -9,21 +9,6 @@
 #include "mmu.h"
 #include "spinlock.h"
 
-static unsigned char refcounts[PHYSTOP >> PTXSHIFT];  // One byte per page
-
-//converts addr to page number
-int get_refcount(char *pa) {
-    return refcounts[(uint)pa >> PTXSHIFT];
-}
-
-//change refcounts when unsharing/sharing pages
-void inc_refcount(char *pa) {
-    refcounts[(uint)pa >> PTXSHIFT]++;
-}
-
-void dec_refcount(char *pa) {
-    refcounts[(uint)pa >> PTXSHIFT]--;
-}
 void freerange(void *vstart, void *vend);
 extern char end[]; // first address after kernel loaded from ELF file
                    // defined by the kernel linker script in kernel.ld
