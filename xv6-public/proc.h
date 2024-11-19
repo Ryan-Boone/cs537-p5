@@ -34,6 +34,15 @@ struct context {
 
 enum procstate { UNUSED, EMBRYO, SLEEPING, RUNNABLE, RUNNING, ZOMBIE };
 
+struct wmap_struct {
+    uint addr;           // Starting virtual address
+    int length;         // Length of mapping
+    int flags;          // Mapping flags (MAP_SHARED, etc)
+    int fd;             // File descriptor (-1 for anonymous)
+    struct file *f;     // Pointer to file struct (NULL for anonymous)
+    int allocated;      // Is this slot in use?
+    uint num_pages;     // Number of pages mapped
+};
 // Per-process state
 struct proc {
   uint sz;                     // Size of process memory (bytes)
@@ -59,12 +68,4 @@ struct proc {
 //   fixed-size stack
 //   expandable heap
 
-struct wmap_struct {
-    uint addr;           // Starting virtual address
-    int length;         // Length of mapping
-    int flags;          // Mapping flags (MAP_SHARED, etc)
-    int fd;             // File descriptor (-1 for anonymous)
-    struct file *f;     // Pointer to file struct (NULL for anonymous)
-    int allocated;      // Is this slot in use?
-    uint num_pages;     // Number of pages mapped
-};
+
