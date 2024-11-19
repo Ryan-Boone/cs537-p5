@@ -250,6 +250,7 @@ handle_wmap_fault(struct proc *p, uint addr)
     wmap->num_pages++;
     return 1;
 }
+
 int
 sys_getwmapinfo(void)
 {
@@ -260,17 +261,24 @@ sys_getwmapinfo(void)
     if(argptr(0, (char**)&wminfo, sizeof(*wminfo)) < 0)
         return -1;
         
+    // Set total number of active mappings
     wminfo->total_mmaps = p->num_wmaps;
     
+    // Clear all entries first
+    for(i = 0; i < MAX_WMMAP_INFO; i++) {
+        wminfo->addr[i] = 0;
+        wminfo->length[i] = 0;
+        wminfo->n_loaded_pages[i] = 0;
+    }
+    
+    // Copy only active mappings
+    int map_idx = 0;
     for(i = 0; i < MAX_WMMAP_INFO; i++) {
         if(p->wmaps[i].allocated) {
-            wminfo->addr[i] = p->wmaps[i].addr;
-            wminfo->length[i] = p->wmaps[i].length;
-            wminfo->n_loaded_pages[i] = p->wmaps[i].num_pages;
-        } else {
-            wminfo->addr[i] = 0;
-            wminfo->length[i] = 0;
-            wminfo->n_loaded_pages[i] = 0;
+            wminfo->addr[map_idx] = p->wmaps[i].addr;
+            wminfo->length[map_idx] = p->wmaps[i].length;
+            wminfo->n_loaded_pages[map_idx] = p->wmaps[i].num_pages;
+            map_idx++;
         }
     }
     
@@ -284,28 +292,36 @@ sys_wmap(void)
     int length, flags, fd;
     struct proc *p = myproc();
     
-    // Get arguments
-    if (argint(1, &length) < 0 || argint(2, &flags) < 0 || 
-        argint(3, &fd) < 0 || argptr(0, (void*)&addr, sizeof(addr)) < 0)
+    // Get arguments 
+    int addr_val;
+    if(argint(0, &addr_val) < 0 ||
+       argint(1, &length) < 0 ||
+       argint(2, &flags) < 0 ||
+       argint(3, &fd) < 0)
         return FAILED;
+    
+    addr = (uint)addr_val;
+    
+    // Store original length before rounding
+    int original_length = length;
     
     // Validate arguments
     if (length <= 0)
         return FAILED;
-        
-    // Must have MAP_SHARED and MAP_FIXED
-    if (!(flags & MAP_SHARED) || !(flags & MAP_FIXED))
+    
+    // Must have both MAP_FIXED and MAP_SHARED
+    if ((flags & (MAP_FIXED | MAP_SHARED)) != (MAP_FIXED | MAP_SHARED))
         return FAILED;
-        
+    
     // Check alignment
     if (addr % PGSIZE != 0)
         return FAILED;
-        
-    // Round length up to page size
-    length = PGROUNDUP(length);
     
-    // Check if address range is available
-    if (!is_range_free(p, addr, length))
+    // Round length up to page size for internal use
+    int rounded_length = PGROUNDUP(length);
+    
+    // Validate address range
+    if (!is_range_free(p, addr, rounded_length))
         return FAILED;
     
     // Find free wmap slot
@@ -313,25 +329,33 @@ sys_wmap(void)
     if (!wmap)
         return FAILED;
     
-    // Set up the mapping
+    // Initialize the mapping completely
+    memset(wmap, 0, sizeof(*wmap));  // Clear structure first
     wmap->addr = addr;
-    wmap->length = length;
+    wmap->length = original_length;  // Store original length, not rounded
     wmap->flags = flags;
     wmap->fd = fd;
     wmap->allocated = 1;
     wmap->num_pages = 0;
+    wmap->f = 0;  // Initialize file pointer
     
-    // Handle file-backed mapping
+    // Handle anonymous vs file-backed mapping
     if (!(flags & MAP_ANONYMOUS)) {
         if (fd < 0 || fd >= NOFILE || !p->ofile[fd])
             return FAILED;
-            
         wmap->f = p->ofile[fd];
-        filedup(wmap->f);  // Increment reference count
+        filedup(wmap->f);
     } else {
-        wmap->f = 0;
+        if (fd != -1)
+            return FAILED;
     }
     
     p->num_wmaps++;
+    
+    // For debugging
+    cprintf("Created mapping: addr=0x%x, length=0x%x, flags=0x%x\n", 
+            wmap->addr, wmap->length, wmap->flags);
+            
     return addr;
 }
+
