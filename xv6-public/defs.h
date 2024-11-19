@@ -165,10 +165,14 @@ extern uint     ticks;
 void            tvinit(void);
 extern struct spinlock tickslock;
 
+
 // uart.c
 void            uartinit(void);
 void            uartintr(void);
 void            uartputc(int);
+
+// wmap.c
+int             handle_wmap_fault(struct proc*, uint);
 
 // vm.c
 void            seginit(void);
