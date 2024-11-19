@@ -1,37 +1,15 @@
 #include "types.h"
 #include "param.h"
 #include "memlayout.h"
-#include "mmu.h"     
+#include "mmu.h"
 #include "proc.h"
-#include "defs.h"    
+#include "defs.h"
 #include "x86.h"
 #include "spinlock.h"
 #include "sleeplock.h"
 #include "fs.h"
 #include "file.h"
 #include "wmap.h"
-
-static pte_t *
-walkpgdir(pde_t *pgdir, const void *va, int alloc)
-{
-  pde_t *pde;
-  pte_t *pgtab;
-
-  pde = &pgdir[PDX(va)];
-  if(*pde & PTE_P){
-    pgtab = (pte_t*)P2V(PTE_ADDR(*pde));
-  } else {
-    if(!alloc || (pgtab = (pte_t*)kalloc()) == 0)
-      return 0;
-    // Make sure all those PTE_P bits are zero.
-    memset(pgtab, 0, PGSIZE);
-    // The permissions here are overly generous, but they can
-    // be further restricted by the permissions in the page table
-    // entries, if necessary.
-    *pde = V2P(pgtab) | PTE_P | PTE_W | PTE_U;
-  }
-  return &pgtab[PTX(va)];
-}
 
 static int
 mappages(pde_t *pgdir, void *va, uint size, uint pa, int perm)

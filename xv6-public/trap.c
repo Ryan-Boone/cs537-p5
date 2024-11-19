@@ -47,28 +47,64 @@ trap(struct trapframe *tf)
   }
 
   switch(tf->trapno){
-  case T_PGFLT:
-    if (handle_wmap_fault(myproc(), rcr2()) > 0) {
-        break;  // Successfully handled page fault
-    } else if (handle_wmap_fault(myproc(), rcr2()) == 0) {
-        // Not our fault to handle - might be a real segfault
-        cprintf("Segmentation fault\n");
-        myproc()->killed = 1;
-    } else {
-        // Error during handling (e.g., out of memory)
-        cprintf("Error handling page fault\n");
-        myproc()->killed = 1;
-    }
-    break;
-  case T_IRQ0 + IRQ_TIMER:
-    if(cpuid() == 0){
-      acquire(&tickslock);
-      ticks++;
-      wakeup(&ticks);
-      release(&tickslock);
-    }
-    lapiceoi();
-    break;
+  case T_PGFLT: {
+      uint va = rcr2();  // Get the faulting address
+      struct proc *p = myproc();
+      pte_t *pte;
+      uint pa;
+      char *mem;
+      // First check if address is in kernel space or otherwise invalid
+      if(va >= KERNBASE || va < 0) {
+          cprintf("Segmentation fault\n");
+          p->killed = 1;
+          break;
+      }
+      // First try handling wmap fault
+      int wmap_result = handle_wmap_fault(p, va);
+      if (wmap_result > 0) {
+          break;  // Successfully handled wmap fault
+      }
+
+      // If not a wmap fault, check if it's a COW fault
+      if ((pte = walkpgdir(p->pgdir, (void*)va, 0)) == 0 ||
+          !(*pte & PTE_P) || !(*pte & PTE_COW)) {
+          // Not a COW page - real segfault
+          cprintf("Segmentation fault\n");
+          p->killed = 1;
+          break;
+      }
+
+      // Handle COW fault
+      pa = PTE_ADDR(*pte);
+      
+      // If refcount is 1, just make it writable
+      if (get_refcount((char*)P2V(pa)) == 1) {
+          if (*pte & PTE_W_OLD) {
+              *pte |= PTE_W;         // Make writable
+              *pte &= ~PTE_COW;      // Clear COW flag
+              lcr3(V2P(p->pgdir));   // Flush TLB
+              break;
+          }
+      }
+      
+      // Need to copy the page
+      if ((mem = kalloc()) == 0) {
+          cprintf("Page fault - out of memory\n");
+          p->killed = 1;
+          break;
+      }
+
+      memmove(mem, (char*)P2V(pa), PGSIZE);
+      
+      // Update PTE to point to new page
+      *pte = V2P(mem) | PTE_P | PTE_U;
+      if (*pte & PTE_W_OLD)
+          *pte |= PTE_W;
+          
+      dec_refcount((char*)P2V(pa));
+      lcr3(V2P(p->pgdir));
+      break;
+  }
   case T_IRQ0 + IRQ_IDE:
     ideintr();
     lapiceoi();

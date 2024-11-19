@@ -86,6 +86,12 @@ struct segdesc {
 
 #define PTXSHIFT        12      // offset of PTX in a linear address
 #define PDXSHIFT        22      // offset of PDX in a linear address
+// Our new flags using available bits 9-11 in PTE
+#define PTE_COW          0x200   // Copy-on-write page (bit 9)
+#define PTE_W_OLD        0x400   // Was writable before COW (bit 10)
+
+// Physical memory constants if not already defined elsewhere
+#define PHYSTOP        0xE000000      // Top physical memory
 
 #define PGROUNDUP(sz)  (((sz)+PGSIZE-1) & ~(PGSIZE-1))
 #define PGROUNDDOWN(a) (((a)) & ~(PGSIZE-1))
@@ -99,6 +105,8 @@ struct segdesc {
 // Address in page table or page directory entry
 #define PTE_ADDR(pte)   ((uint)(pte) & ~0xFFF)
 #define PTE_FLAGS(pte)  ((uint)(pte) &  0xFFF)
+
+
 
 #ifndef __ASSEMBLER__
 typedef uint pte_t;
