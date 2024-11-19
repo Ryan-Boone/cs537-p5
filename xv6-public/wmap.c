@@ -164,6 +164,7 @@ sys_wunmap(void)
 }
 
 // Helper function to check if address range is free
+// Helper function to check if address range is free
 static int
 is_range_free(struct proc *p, uint addr, int length)
 {
@@ -175,16 +176,30 @@ is_range_free(struct proc *p, uint addr, int length)
         return 0;
         
     // Check for overlap with existing mappings
-    for (i = 0; i < 16; i++) {
+    for (i = 0; i < MAX_WMMAP_INFO; i++) {
         if (!p->wmaps[i].allocated)
             continue;
             
-        uint map_end = p->wmaps[i].addr + p->wmaps[i].length;
-        if ((addr >= p->wmaps[i].addr && addr < map_end) ||
-            (end > p->wmaps[i].addr && end <= map_end))
+        uint map_start = p->wmaps[i].addr;
+        uint map_end = map_start + p->wmaps[i].length;
+        
+        // Debug prints
+        cprintf("Checking overlap: new(0x%x-0x%x) vs existing(0x%x-0x%x)\n",
+                addr, end, map_start, map_end);
+        
+        // Check for any overlap:
+        // 1. New region starts inside existing region
+        // 2. New region ends inside existing region
+        // 3. New region completely contains existing region
+        if ((addr >= map_start && addr < map_end) ||          // Start overlaps
+            (end > map_start && end <= map_end) ||            // End overlaps
+            (addr <= map_start && end >= map_end)) {          // Complete overlap
+            cprintf("Overlap detected!\n");
             return 0;
+        }
     }
     
+    cprintf("Range 0x%x-0x%x is free\n", addr, end);
     return 1;
 }
 
@@ -297,65 +312,79 @@ sys_wmap(void)
     if(argint(0, &addr_val) < 0 ||
        argint(1, &length) < 0 ||
        argint(2, &flags) < 0 ||
-       argint(3, &fd) < 0)
+       argint(3, &fd) < 0) {
+        cprintf("sys_wmap: Failed to get arguments\n");
         return FAILED;
+    }
     
     addr = (uint)addr_val;
     
-    // Store original length before rounding
-    int original_length = length;
-    
     // Validate arguments
-    if (length <= 0)
+    if (length <= 0) {
+        cprintf("sys_wmap: Invalid length %d\n", length);
         return FAILED;
+    }
     
     // Must have both MAP_FIXED and MAP_SHARED
-    if ((flags & (MAP_FIXED | MAP_SHARED)) != (MAP_FIXED | MAP_SHARED))
+    if ((flags & (MAP_FIXED | MAP_SHARED)) != (MAP_FIXED | MAP_SHARED)) {
+        cprintf("sys_wmap: Invalid flags 0x%x\n", flags);
         return FAILED;
+    }
     
     // Check alignment
-    if (addr % PGSIZE != 0)
+    if (addr % PGSIZE != 0) {
+        cprintf("sys_wmap: Address not page aligned 0x%x\n", addr);
         return FAILED;
+    }
     
     // Round length up to page size for internal use
     int rounded_length = PGROUNDUP(length);
     
+    cprintf("sys_wmap: Checking range addr=0x%x len=%d\n", addr, rounded_length);
+    
     // Validate address range
-    if (!is_range_free(p, addr, rounded_length))
+    if (!is_range_free(p, addr, rounded_length)) {
+        cprintf("sys_wmap: Address range not free\n");
         return FAILED;
+    }
     
     // Find free wmap slot
     struct wmap_struct *wmap = find_free_wmap(p);
-    if (!wmap)
+    if (!wmap) {
+        cprintf("sys_wmap: No free slots\n");
         return FAILED;
+    }
     
     // Initialize the mapping completely
     memset(wmap, 0, sizeof(*wmap));  // Clear structure first
     wmap->addr = addr;
-    wmap->length = original_length;  // Store original length, not rounded
+    wmap->length = length;  // Use original length
     wmap->flags = flags;
-    wmap->fd = fd;
     wmap->allocated = 1;
     wmap->num_pages = 0;
-    wmap->f = 0;  // Initialize file pointer
     
-    // Handle anonymous vs file-backed mapping
-    if (!(flags & MAP_ANONYMOUS)) {
-        if (fd < 0 || fd >= NOFILE || !p->ofile[fd])
-            return FAILED;
-        wmap->f = p->ofile[fd];
-        filedup(wmap->f);
+    // Handle file-backed vs anonymous mapping
+    if (flags & MAP_ANONYMOUS) {
+        // For anonymous mappings, ignore the fd value
+        wmap->f = 0;
+        wmap->fd = -1;  // Store -1 internally for anonymous mappings
     } else {
-        if (fd != -1)
+        // For file-backed mappings
+        if (fd < 0 || fd >= NOFILE || !p->ofile[fd]) {
+            cprintf("sys_wmap: Invalid fd %d for file mapping\n", fd);
             return FAILED;
+        }
+        wmap->f = p->ofile[fd];
+        wmap->fd = fd;
+        filedup(wmap->f);
     }
     
     p->num_wmaps++;
     
-    // For debugging
     cprintf("Created mapping: addr=0x%x, length=0x%x, flags=0x%x\n", 
             wmap->addr, wmap->length, wmap->flags);
             
     return addr;
 }
+
 
