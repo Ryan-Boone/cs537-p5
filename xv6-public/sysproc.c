@@ -89,3 +89,31 @@ sys_uptime(void)
   release(&tickslock);
   return xticks;
 }
+
+int
+sys_va2pa(void)
+{
+  uint va;
+  
+  // Get the virtual address argument
+  if(argint(0, (int*)&va) < 0)
+    return -1;
+    
+  struct proc *p = myproc();
+  pte_t *pte;
+  
+  // Walk the page table to find the PTE for this address
+  pte = getwalkpgdir(p->pgdir, (void*)va, 0);
+  
+  // Check if PTE exists and is valid (present)
+  if(pte == 0 || (*pte & PTE_P) == 0)
+    return -1;
+    
+  // Get the physical page number from PTE
+  uint pa = PTE_ADDR(*pte);
+  
+  // Add the offset from the virtual address
+  pa |= (va & (PGSIZE-1));
+  
+  return pa;
+}
