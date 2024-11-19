@@ -48,17 +48,16 @@ trap(struct trapframe *tf)
 
   switch(tf->trapno){
   case T_PGFLT:
-    if (handle_wmap_fault(myproc(), rcr2()) > 0) {
-        break;  // Successfully handled page fault
-    } else if (handle_wmap_fault(myproc(), rcr2()) == 0) {
-        // Not our fault to handle - might be a real segfault
-        cprintf("Segmentation Fault\n");
-        myproc()->killed = 1;
-    } else {
-        // Error during handling (e.g., out of memory)
-        cprintf("Error handling page fault\n");
-        myproc()->killed = 1;
+    if(pagefault(myproc()) > 0) {
+        break;  // COW handled successfully
     }
+    // Try wmap fault handler if not COW
+    if(handle_wmap_fault(myproc(), rcr2()) > 0) {
+        break;
+    }
+    cprintf("Segmentation Fault\n");
+    myproc()->killed = 1;
+    lapiceoi();
     break;
   case T_IRQ0 + IRQ_TIMER:
     if(cpuid() == 0){

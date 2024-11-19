@@ -190,6 +190,10 @@ void            switchkvm(void);
 int             copyout(pde_t*, uint, void*, uint);
 void            clearpteu(pde_t *pgdir, char *uva);
 pte_t*          getwalkpgdir(pde_t*, void*, int);
+int             pagefault(struct proc*);
+void            kincrement(char*);
+void            kdecrement(char*);
+int             kgetrefcnt(char*);
 
 // number of elements in fixed-size array
 #define NELEM(x) (sizeof(x)/sizeof((x)[0]))

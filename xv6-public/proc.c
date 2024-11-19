@@ -214,17 +214,17 @@ fork(void)
       np->ofile[i] = filedup(curproc->ofile[i]);
   np->cwd = idup(curproc->cwd);
 
-  // Copy memory mappings from parent to child
-  np->num_wmaps = curproc->num_wmaps;
-  for(i = 0; i < MAX_WMMAP_INFO; i++) {
-    if(curproc->wmaps[i].allocated) {
-      np->wmaps[i] = curproc->wmaps[i];
-      if(np->wmaps[i].f)
-        filedup(np->wmaps[i].f);  // Increment reference count for mapped files
-    } else {
-      np->wmaps[i].allocated = 0;
-    }
-  }
+  // // Copy memory mappings from parent to child
+  // np->num_wmaps = curproc->num_wmaps;
+  // for(i = 0; i < MAX_WMMAP_INFO; i++) {
+  //   if(curproc->wmaps[i].allocated) {
+  //     np->wmaps[i] = curproc->wmaps[i];
+  //     if(np->wmaps[i].f)
+  //       filedup(np->wmaps[i].f);  // Increment reference count for mapped files
+  //   } else {
+  //     np->wmaps[i].allocated = 0;
+  //   }
+  // }
 
   safestrcpy(np->name, curproc->name, sizeof(curproc->name));
 
