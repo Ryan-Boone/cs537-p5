@@ -310,13 +310,13 @@ sys_wmap(void)
         cprintf("sys_wmap: No free slots\n");
         return FAILED;
     }
-    
+
     // Initialize the mapping completely
     memset(wmap, 0, sizeof(*wmap));  // Clear structure first
     wmap->addr = addr;
-    wmap->length = length;  // Use original length
+    wmap->length = length;
     wmap->flags = flags;
-    wmap->allocated = 1;
+    wmap->allocated = 1;  // Make sure this is set
     wmap->num_pages = 0;
     
     // Handle file-backed vs anonymous mapping

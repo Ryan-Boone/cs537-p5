@@ -7,6 +7,10 @@
 #include "x86.h"
 #include "traps.h"
 #include "spinlock.h"
+#include "wmap.h"
+#include "fs.h"
+#include "sleeplock.h"
+#include "file.h"
 
 // Interrupt descriptor table (shared by all CPUs).
 struct gatedesc idt[256];
@@ -48,17 +52,101 @@ trap(struct trapframe *tf)
 
   switch(tf->trapno){
   case T_PGFLT:
-    if (handle_wmap_fault(myproc(), rcr2()) > 0) {
-        break;  // Successfully handled page fault
-    } else if (handle_wmap_fault(myproc(), rcr2()) == 0) {
-        // Not our fault to handle - might be a real segfault
-        cprintf("Segmentation Fault\n");
-        myproc()->killed = 1;
-    } else {
-        // Error during handling (e.g., out of memory)
-        cprintf("Error handling page fault\n");
-        myproc()->killed = 1;
+    int valid_addr = 0;
+    int failed_addr = rcr2();
+    //struct wmapinfo wmap = myproc()->mmap;
+    //struct wmap_struct wmap[16] = myproc()->wmaps;
+
+    pte_t *pgdir = myproc()->pgdir;
+
+    int cow_va = PGROUNDDOWN(failed_addr);
+    pte_t *cow_pte = getwalkpgdir(pgdir, (void *)cow_va, 0);
+    //Check first of the addr is previously written bit
+    if(*cow_pte != 0 && (*cow_pte & PTE_P) != 0 && (*cow_pte & PTE_PW) != 0)
+    {
+      //Check the reference count
+      int cow_pa = PTE_ADDR(*cow_pte);
+      if(get_ref_count(cow_pa) > 1)
+      { 
+        //Make a new page 
+        char *mem = kalloc();
+        if(mem == 0)
+        {
+          //KILL PROCESS
+          kill(myproc()->pid);
+        }
+        *cow_pte &= ~PTE_P;
+        *cow_pte |= PTE_W;
+        uint flags = PTE_FLAGS(*cow_pte);
+        //copy contents from cow_va to mem
+        memmove(mem, (char*)P2V(cow_pa), PGSIZE);
+        //Putting new page into processes pgdir
+        if(getmappages(pgdir, (void*)cow_va, PGSIZE, V2P(mem), flags) != 0)
+        {
+          //Kill process
+          kill(myproc()->pid);
+        }
+        dec_ref(cow_pa);
+        lcr3(V2P(pgdir));
+      }
+      else //No other reference than the current page so no need to copy the current page
+      {
+        *cow_pte |= PTE_W;
+        lcr3(V2P(pgdir)); 
+      }
+      valid_addr = 1;
     }
+
+    
+
+    for (int i = 0; i < MAX_WMMAP_INFO; i++) {
+      if (myproc()->wmaps[i].addr != 0 && failed_addr >= myproc()->wmaps[i].addr && failed_addr < (myproc()->wmaps[i].addr + myproc()->wmaps[i].length)) {
+        //alloc ONE page if addr is in range of one of the mappings
+        char *mem = kalloc();
+        if (mem == 0) {
+          // Kill process or do something idk
+          kill(myproc()->pid);
+        }
+
+        int page_start = (failed_addr % PGSIZE == 0) ? failed_addr : failed_addr - (failed_addr % PGSIZE);
+        if(getmappages(pgdir, (void*)(page_start), PGSIZE, V2P(mem), PTE_W | PTE_U) != 0) {
+          // Kill process or do something idk
+          kill(myproc()->pid);
+        }
+
+        if (!myproc()->wmaps[i].f) {
+          // in anon set memory to zero
+          memset((void *)page_start, 0, PGSIZE);
+        } else  {
+          // in fb set memory to file content
+
+          // calculate offest within file for read
+          uint off = page_start - myproc()->wmaps[i].addr;
+          
+          // reading 1 PAGE from file into page_start starting read at offset
+          ilock(myproc()->wmaps[i].f->ip);                                                   //TODO: something wrong here?
+          int size = readi(myproc()->wmaps[i].f->ip, (char *)page_start, off, PGSIZE);
+          iunlock(myproc()->wmaps[i].f->ip);
+
+          // check if readi was successful
+          if (size == -1) {
+            kill(myproc()->pid);
+          }
+        }
+
+        myproc()->wmaps[i].num_pages++;                                                     // TODO: here
+        valid_addr = 1;
+        break;
+      }  
+    }
+
+    if (valid_addr != 1) {
+      // print out segfault if no mappings are found for address and kill process
+      cprintf("Segmentation Fault\n");
+      kill(myproc()->pid);
+    }
+
+    lapiceoi();
     break;
   case T_IRQ0 + IRQ_TIMER:
     if(cpuid() == 0){

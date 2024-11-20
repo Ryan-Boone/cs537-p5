@@ -214,21 +214,77 @@ fork(void)
       np->ofile[i] = filedup(curproc->ofile[i]);
   np->cwd = idup(curproc->cwd);
 
-  // Copy memory mappings from parent to child
-  np->num_wmaps = curproc->num_wmaps;
-  for(i = 0; i < MAX_WMMAP_INFO; i++) {
-    if(curproc->wmaps[i].allocated) {
-      np->wmaps[i] = curproc->wmaps[i];
-      if(np->wmaps[i].f)
-        filedup(np->wmaps[i].f);  // Increment reference count for mapped files
-    } else {
-      np->wmaps[i].allocated = 0;
-    }
-  }
+  // // Copy memory mappings from parent to child
+  // np->num_wmaps = curproc->num_wmaps;
+  // for(i = 0; i < MAX_WMMAP_INFO; i++) {
+  //   if(curproc->wmaps[i].allocated) {
+  //     np->wmaps[i] = curproc->wmaps[i];
+  //     if(np->wmaps[i].f)
+  //       filedup(np->wmaps[i].f);  // Increment reference count for mapped files
+  //   } else {
+  //     np->wmaps[i].allocated = 0;
+  //   }
+  // }
 
   safestrcpy(np->name, curproc->name, sizeof(curproc->name));
 
   pid = np->pid;
+
+// Copy number of mappings first
+np->num_wmaps = curproc->num_wmaps;
+
+//Copying over all the mmapinfo contents
+for(int i = 0; i < MAX_WMMAP_INFO; i++)
+{
+    // Skip unallocated entries
+    if(!curproc->wmaps[i].allocated)
+        continue;
+        
+    np->wmaps[i].addr = curproc->wmaps[i].addr;
+    np->wmaps[i].length = curproc->wmaps[i].length;
+    np->wmaps[i].num_pages = curproc->wmaps[i].num_pages;
+    np->wmaps[i].allocated = curproc->wmaps[i].allocated;
+    np->wmaps[i].flags = curproc->wmaps[i].flags;
+    
+    // Handle file duplication
+    if(curproc->wmaps[i].f) {
+        np->wmaps[i].f = filedup(curproc->wmaps[i].f);
+    } else {
+        np->wmaps[i].f = 0;
+    }
+}
+
+// Now copy the pages
+for(int i = 0; i < MAX_WMMAP_INFO; i++)
+{
+    if(!curproc->wmaps[i].allocated)
+        continue;
+        
+    int parent_length = curproc->wmaps[i].length;
+    int parent_addr = curproc->wmaps[i].addr;
+    while(parent_length > 0)
+    {
+        pte_t *parent_pte = getwalkpgdir(curproc->pgdir, (void*) parent_addr, 0);
+        if(parent_pte == 0 || (*parent_pte & PTE_P) == 0)
+        {
+            parent_length-=PGSIZE;
+            parent_addr+=PGSIZE;
+            continue;
+        }
+        uint pa = PTE_ADDR(*parent_pte);
+        uint flags = PTE_FLAGS(*parent_pte);
+        
+        if(getmappages(np->pgdir, (void*)parent_addr, PGSIZE, pa, flags) < 0)
+        {
+            // If mapping fails, we should probably clean up and return error
+          panic("Failed to map page in child process");        
+        }
+
+        inc_ref(pa);
+        parent_length-=PGSIZE;
+        parent_addr+=PGSIZE;
+    }
+}
 
   acquire(&ptable.lock);
   np->state = RUNNABLE;

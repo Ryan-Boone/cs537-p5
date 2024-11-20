@@ -9,6 +9,8 @@
 #include "mmu.h"
 #include "spinlock.h"
 
+uint8_t ref_count[PHYSTOP / PGSIZE];
+
 void freerange(void *vstart, void *vend);
 extern char end[]; // first address after kernel loaded from ELF file
                    // defined by the kernel linker script in kernel.ld
@@ -33,6 +35,9 @@ kinit1(void *vstart, void *vend)
 {
   initlock(&kmem.lock, "kmem");
   kmem.use_lock = 0;
+  for (int i = 0; i < PHYSTOP / PGSIZE; i++) {
+    ref_count[i] = 0;
+  }
   freerange(vstart, vend);
 }
 
@@ -64,6 +69,18 @@ kfree(char *v)
   if((uint)v % PGSIZE || v < end || V2P(v) >= PHYSTOP)
     panic("kfree");
 
+  if (kmem.use_lock)
+    acquire(&kmem.lock);
+  if (ref_count[V2P(v) / PGSIZE] > 1) {
+    ref_count[V2P(v) / PGSIZE]--;
+    if (kmem.use_lock)
+      release(&kmem.lock);
+    return;
+  }
+  if (kmem.use_lock)
+    release(&kmem.lock);
+
+
   // Fill with junk to catch dangling refs.
   memset(v, 1, PGSIZE);
 
@@ -87,10 +104,38 @@ kalloc(void)
   if(kmem.use_lock)
     acquire(&kmem.lock);
   r = kmem.freelist;
-  if(r)
+  if(r) {
     kmem.freelist = r->next;
+    ref_count[V2P(r) / PGSIZE] = 1;
+  }
   if(kmem.use_lock)
     release(&kmem.lock);
   return (char*)r;
 }
+
+
+void 
+inc_ref(uint pa)
+{
+  acquire(&kmem.lock);
+  ref_count[pa/PGSIZE]++;
+  release(&kmem.lock);
+}
+
+void 
+dec_ref(uint pa)
+{
+  acquire(&kmem.lock);
+  ref_count[pa/PGSIZE]--;
+  release(&kmem.lock);
+}
+
+uint8_t
+get_ref_count(uint pa) {
+  acquire(&kmem.lock);
+  int count = ref_count[pa/PGSIZE];
+  release(&kmem.lock);
+  return count;
+} 
+
 
