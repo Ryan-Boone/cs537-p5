@@ -10,6 +10,13 @@
 #include "fs.h"
 #include "file.h"
 #include "wmap.h"
+int sys_wunmap(void);  // Forward declaration
+
+int
+wunmap(uint addr)
+{
+    return sys_wunmap();
+}
 
 // Helper function to find a mapping by address
 static struct wmap_struct*

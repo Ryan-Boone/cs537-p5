@@ -313,6 +313,9 @@ exit(void)
       curproc->ofile[fd] = 0;
     }
   }
+  for (int i = 0; i < MAX_WMMAP_INFO; i++) {
+    wunmap(curproc->wmaps[i].addr);
+  }
 
   begin_op();
   iput(curproc->cwd);

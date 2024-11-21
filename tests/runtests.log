@@ -60,15 +60,15 @@ objdump -t kernel | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$/d' > kernel.sym
 dd if=/dev/zero of=xv6.img count=10000
 10000+0 records in
 10000+0 records out
-5120000 bytes (5.1 MB, 4.9 MiB) copied, 0.0677535 s, 75.6 MB/s
+5120000 bytes (5.1 MB, 4.9 MiB) copied, 0.095304 s, 53.7 MB/s
 dd if=bootblock of=xv6.img conv=notrunc
 1+0 records in
 1+0 records out
-512 bytes copied, 0.000112914 s, 4.5 MB/s
+512 bytes copied, 0.00127359 s, 402 kB/s
 dd if=kernel of=xv6.img seek=1 conv=notrunc
-435+1 records in
-435+1 records out
-223220 bytes (223 kB, 218 KiB) copied, 0.000683852 s, 326 MB/s
+436+1 records in
+436+1 records out
+223592 bytes (224 kB, 218 KiB) copied, 0.0144449 s, 15.5 MB/s
 gcc -Werror -Wall -o mkfs mkfs.c
 gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o ulib.o ulib.c
 gcc -m32 -gdwarf-2 -Wa,-divide   -c -o usys.o usys.S
@@ -160,8 +160,8 @@ Running xv6 user progam /home/wadhawan/private/cs537/cs537-p5/tests/ctests/test_
 DEBUG: Copying header file to project path
 Trying to build project using make
 make xv6.img fs.img
-/tmp/tmpgpwkfd3r/p/Makefile
-/tmp/tmpgpwkfd3r/p/Makefile.test
+/tmp/tmpfstpw688/p/Makefile
+/tmp/tmpfstpw688/p/Makefile.test
 make: 'xv6.img' is up to date.
 make: 'fs.img' is up to date.
 make qemu-nox CPUS=1
@@ -190,7 +190,7 @@ tester
 
 
 TEST_1
-INFO: va2pa(0x0) returned 0xDED9000
+INFO: va2pa(0x0) returned 0xDEDE000
 INFO: total_mmaps = 0
 sys_wmap: Checking range addr=0x0 len=4096
 sys_wmap: Address range not free
@@ -215,8 +215,8 @@ Running xv6 user progam /home/wadhawan/private/cs537/cs537-p5/tests/ctests/test_
 DEBUG: Copying header file to project path
 Trying to build project using make
 make xv6.img fs.img
-/tmp/tmpgpwkfd3r/p/Makefile
-/tmp/tmpgpwkfd3r/p/Makefile.test
+/tmp/tmpfstpw688/p/Makefile
+/tmp/tmpfstpw688/p/Makefile.test
 make: 'xv6.img' is up to date.
 make: 'fs.img' is up to date.
 make qemu-nox CPUS=1
@@ -260,11 +260,11 @@ MAP: Place one fixed anonymous map
 
 **********************************************************************
 Running xv6 user progam /home/wadhawan/private/cs537/cs537-p5/tests/ctests/test_3.c
+/tmp/tmpfstpw688/p/Makefile
+/tmp/tmpfstpw688/p/Makefile.test
 DEBUG: Copying header file to project path
 Trying to build project using make
 make xv6.img fs.img
-/tmp/tmpgpwkfd3r/p/Makefile
-/tmp/tmpgpwkfd3r/p/Makefile.test
 make: 'xv6.img' is up to date.
 make: 'fs.img' is up to date.
 make qemu-nox CPUS=1
@@ -319,8 +319,8 @@ Running xv6 user progam /home/wadhawan/private/cs537/cs537-p5/tests/ctests/test_
 DEBUG: Copying header file to project path
 Trying to build project using make
 make xv6.img fs.img
-/tmp/tmpgpwkfd3r/p/Makefile
-/tmp/tmpgpwkfd3r/p/Makefile.test
+/tmp/tmpfstpw688/p/Makefile
+/tmp/tmpfstpw688/p/Makefile.test
 make: 'xv6.img' is up to date.
 make: 'fs.img' is up to date.
 make qemu-nox CPUS=1
@@ -375,8 +375,8 @@ Running xv6 user progam /home/wadhawan/private/cs537/cs537-p5/tests/ctests/test_
 DEBUG: Copying header file to project path
 Trying to build project using make
 make xv6.img fs.img
-/tmp/tmpgpwkfd3r/p/Makefile
-/tmp/tmpgpwkfd3r/p/Makefile.test
+/tmp/tmpfstpw688/p/Makefile
+/tmp/tmpfstpw688/p/Makefile.test
 make: 'xv6.img' is up to date.
 make: 'fs.img' is up to date.
 make qemu-nox CPUS=1
@@ -444,11 +444,11 @@ MAP+ALLOC: Access fixed anonymous map (checks for memory allocation)
 
 **********************************************************************
 Running xv6 user progam /home/wadhawan/private/cs537/cs537-p5/tests/ctests/test_6.c
-/tmp/tmpgpwkfd3r/p/Makefile
-/tmp/tmpgpwkfd3r/p/Makefile.test
 DEBUG: Copying header file to project path
 Trying to build project using make
 make xv6.img fs.img
+/tmp/tmpfstpw688/p/Makefile
+/tmp/tmpfstpw688/p/Makefile.test
 make: 'xv6.img' is up to date.
 make: 'fs.img' is up to date.
 make qemu-nox CPUS=1
@@ -502,8 +502,8 @@ Running xv6 user progam /home/wadhawan/private/cs537/cs537-p5/tests/ctests/test_
 DEBUG: Copying header file to project path
 Trying to build project using make
 make xv6.img fs.img
-/tmp/tmpgpwkfd3r/p/Makefile
-/tmp/tmpgpwkfd3r/p/Makefile.test
+/tmp/tmpfstpw688/p/Makefile
+/tmp/tmpfstpw688/p/Makefile.test
 make: 'xv6.img' is up to date.
 make: 'fs.img' is up to date.
 make qemu-nox CPUS=1
@@ -563,8 +563,8 @@ Running xv6 user progam /home/wadhawan/private/cs537/cs537-p5/tests/ctests/test_
 DEBUG: Copying header file to project path
 Trying to build project using make
 make xv6.img fs.img
-/tmp/tmpgpwkfd3r/p/Makefile
-/tmp/tmpgpwkfd3r/p/Makefile.test
+/tmp/tmpfstpw688/p/Makefile
+/tmp/tmpfstpw688/p/Makefile.test
 make: 'xv6.img' is up to date.
 make: 'fs.img' is up to date.
 make qemu-nox CPUS=1
@@ -836,11 +836,11 @@ MAP+LAZY: Checks for lazy allocation in anon mapping
 
 **********************************************************************
 Running xv6 user progam /home/wadhawan/private/cs537/cs537-p5/tests/ctests/test_9.c
+/tmp/tmpfstpw688/p/Makefile
+/tmp/tmpfstpw688/p/Makefile.test
 DEBUG: Copying header file to project path
 Trying to build project using make
 make xv6.img fs.img
-/tmp/tmpgpwkfd3r/p/Makefile
-/tmp/tmpgpwkfd3r/p/Makefile.test
 make: 'xv6.img' is up to date.
 make: 'fs.img' is up to date.
 make qemu-nox CPUS=1
@@ -897,9 +897,9 @@ MAP+LAZY: Checks for lazy allocation in filebacked mapping
 Running xv6 user progam /home/wadhawan/private/cs537/cs537-p5/tests/ctests/test_10.c
 DEBUG: Copying header file to project path
 Trying to build project using make
+/tmp/tmpfstpw688/p/Makefile
+/tmp/tmpfstpw688/p/Makefile.test
 make xv6.img fs.img
-/tmp/tmpgpwkfd3r/p/Makefile
-/tmp/tmpgpwkfd3r/p/Makefile.test
 make: 'xv6.img' is up to date.
 make: 'fs.img' is up to date.
 make qemu-nox CPUS=1
@@ -969,8 +969,8 @@ Running xv6 user progam /home/wadhawan/private/cs537/cs537-p5/tests/ctests/test_
 DEBUG: Copying header file to project path
 Trying to build project using make
 make xv6.img fs.img
-/tmp/tmpgpwkfd3r/p/Makefile
-/tmp/tmpgpwkfd3r/p/Makefile.test
+/tmp/tmpfstpw688/p/Makefile
+/tmp/tmpfstpw688/p/Makefile.test
 make: 'xv6.img' is up to date.
 make: 'fs.img' is up to date.
 make qemu-nox CPUS=1
@@ -1028,8 +1028,8 @@ Running xv6 user progam /home/wadhawan/private/cs537/cs537-p5/tests/ctests/test_
 DEBUG: Copying header file to project path
 Trying to build project using make
 make xv6.img fs.img
-/tmp/tmpgpwkfd3r/p/Makefile
-/tmp/tmpgpwkfd3r/p/Makefile.test
+/tmp/tmpfstpw688/p/Makefile
+/tmp/tmpfstpw688/p/Makefile.test
 make: 'xv6.img' is up to date.
 make: 'fs.img' is up to date.
 make qemu-nox CPUS=1
@@ -1083,8 +1083,8 @@ Running xv6 user progam /home/wadhawan/private/cs537/cs537-p5/tests/ctests/test_
 DEBUG: Copying header file to project path
 Trying to build project using make
 make xv6.img fs.img
-/tmp/tmpgpwkfd3r/p/Makefile
-/tmp/tmpgpwkfd3r/p/Makefile.test
+/tmp/tmpfstpw688/p/Makefile
+/tmp/tmpfstpw688/p/Makefile.test
 make: 'xv6.img' is up to date.
 make: 'fs.img' is up to date.
 make qemu-nox CPUS=1
@@ -1104,7 +1104,8 @@ iPXE (https://ipxe.org) 00:03.0 CA00 PCI2.10 PnP PMM+1FF8B4A0+1FECB4A0 CA00
 Press Ctrl-B to configure iPXE (PCI 00:03.0)...                                                                               
 
 
-Booting from Hard Disk..xv6...
+Booting from Hard Disk...
+xv6...
 cpu0: starting 0
 sb: size 1000 nblocks 941 ninodes 200 nlog 30 logstart 2 inodestart 32 bmap start 58
 init: starting sh
@@ -1139,8 +1140,8 @@ Running xv6 user progam /home/wadhawan/private/cs537/cs537-p5/tests/ctests/test_
 DEBUG: Copying header file to project path
 Trying to build project using make
 make xv6.img fs.img
-/tmp/tmpgpwkfd3r/p/Makefile
-/tmp/tmpgpwkfd3r/p/Makefile.test
+/tmp/tmpfstpw688/p/Makefile
+/tmp/tmpfstpw688/p/Makefile.test
 make: 'xv6.img' is up to date.
 make: 'fs.img' is up to date.
 make qemu-nox CPUS=1
@@ -1193,11 +1194,11 @@ UNMAP+DEALLOC: Unmap an accessed filebacked map and check for memory deallocatio
 
 **********************************************************************
 Running xv6 user progam /home/wadhawan/private/cs537/cs537-p5/tests/ctests/test_15.c
-/tmp/tmpgpwkfd3r/p/Makefile
-/tmp/tmpgpwkfd3r/p/Makefile.test
 DEBUG: Copying header file to project path
 Trying to build project using make
 make xv6.img fs.img
+/tmp/tmpfstpw688/p/Makefile
+/tmp/tmpfstpw688/p/Makefile.test
 make: 'xv6.img' is up to date.
 make: 'fs.img' is up to date.
 make qemu-nox CPUS=1
@@ -1259,8 +1260,8 @@ Running xv6 user progam /home/wadhawan/private/cs537/cs537-p5/tests/ctests/test_
 DEBUG: Copying header file to project path
 Trying to build project using make
 make xv6.img fs.img
-/tmp/tmpgpwkfd3r/p/Makefile
-/tmp/tmpgpwkfd3r/p/Makefile.test
+/tmp/tmpfstpw688/p/Makefile
+/tmp/tmpfstpw688/p/Makefile.test
 make: 'xv6.img' is up to date.
 make: 'fs.img' is up to date.
 make qemu-nox CPUS=1
@@ -1323,8 +1324,8 @@ Running xv6 user progam /home/wadhawan/private/cs537/cs537-p5/tests/ctests/test_
 DEBUG: Copying header file to project path
 Trying to build project using make
 make xv6.img fs.img
-/tmp/tmpgpwkfd3r/p/Makefile
-/tmp/tmpgpwkfd3r/p/Makefile.test
+/tmp/tmpfstpw688/p/Makefile
+/tmp/tmpfstpw688/p/Makefile.test
 make: 'xv6.img' is up to date.
 make: 'fs.img' is up to date.
 make qemu-nox CPUS=1
@@ -1344,7 +1345,8 @@ iPXE (https://ipxe.org) 00:03.0 CA00 PCI2.10 PnP PMM+1FF8B4A0+1FECB4A0 CA00
 Press Ctrl-B to configure iPXE (PCI 00:03.0)...                                                                               
 
 
-Booting from Hard Disk..xv6...
+Booting from Hard Disk...
+xv6...
 cpu0: starting 0
 sb: size 1000 nblocks 941 ninodes 200 nlog 30 logstart 2 inodestart 32 bmap start 58
 init: starting sh
@@ -1367,16 +1369,16 @@ Checking overlap: new(0x60004000-0x60008000) vs existing(0x60000000-0x60003000)
 Range 0x60004000-0x60008000 is free
 Created mapping: addr=0x60004000, length=0x3064, flags=0xe
 INFO: Placed map 2 at 0x60004000 with length 12388. 	Okay.
-INFO: Map 1 and 2 INFO: Map 1 INFO: Map 1 andeand 2 exist 2 exixist in Child (pid 4). 	Ok in Child (pid 5). 	Okay.
-st in ChildINFO: Map 1 and 2 exist iINFO: Map 1 and 2 e (pid 6). 	Okay.
-n Chixist in ChilINFO: Map 1 and 2 exist in ChilINFO: Map 1 and 2 existINFO: Map ld (pid 7).  in Child (pid 101	). 	Okay.
- INFO: Map 1Okay.
-dand 2 exist in Child ( and  pid 11). 	Okay.
-2INFO: Map 1 and 2 exist in(pid 8). 	Oka exist in Child (p Child (pid 13y.
-d (pidid 12). 	Okay.). 	Okay.
-a 
-y.
-9). 	Okay.
+INFO: MINFO: Map 1 aap 1 and 2 exind 2 exist in Child (piINFO: Map 1 and 2 exist in Child (pst in Child (pid 4). 	Okay.
+d 5). 	Okay.
+id 6). 	Okay.
+INFO: Map 1 and 2 exist in Child (pid 7). 	Okay.INFO: Map 1 and 2 exist in Child (pid 8). 	Okay.
+INFO: Map 1 and 2 exist in Ch
+ild (pid 9). 	Okay.
+INFO: Map 1 and 2 exist in Child (INFO: Map 1 and 2 exist in Child (pid 11). 	Okay.
+INFO: Map 1 and 2 exist in Child (pid 12)INFO: Map 1 and 2 exist in Child (pid 13). 	Okay.
+pid 10). 	Okay.
+. 	Okay.
 INFO: Map 1 and 2 exist in Parent (pid 3). 	Okay.
 [0;32mSUCCESS:[0m TEST_17	 PASSED
 
@@ -1397,8 +1399,8 @@ Running xv6 user progam /home/wadhawan/private/cs537/cs537-p5/tests/ctests/test_
 DEBUG: Copying header file to project path
 Trying to build project using make
 make xv6.img fs.img
-/tmp/tmpgpwkfd3r/p/Makefile
-/tmp/tmpgpwkfd3r/p/Makefile.test
+/tmp/tmpfstpw688/p/Makefile
+/tmp/tmpfstpw688/p/Makefile.test
 make: 'xv6.img' is up to date.
 make: 'fs.img' is up to date.
 make qemu-nox CPUS=1
@@ -1418,7 +1420,8 @@ iPXE (https://ipxe.org) 00:03.0 CA00 PCI2.10 PnP PMM+1FF8B4A0+1FECB4A0 CA00
 Press Ctrl-B to configure iPXE (PCI 00:03.0)...                                                                               
 
 
-Booting from Hard Disk..xv6...
+Booting from Hard Disk...
+xv6...
 cpu0: starting 0
 sb: size 1000 nblocks 941 ninodes 200 nlog 30 logstart 2 inodestart 32 bmap start 58
 init: starting sh
@@ -1440,16 +1443,16 @@ Checking overlap: new(0x60003000-0x60006000) vs existing(0x60000000-0x60002000)
 Range 0x60003000-0x60006000 is free
 Created mapping: addr=0x60003000, length=0x2064, flags=0xe
 INFO: Placed map 2 at 0x60003000 with length 8292. 	Okay.
-INFO: Map INFINFO: Map 1 and 2 exINFO:O: Map 1ist in Child (pid 6 Map 1 and 2 exisINFO: Map 1 and 2 exINFININFO: O: Map 1 and 2 exist in CFO: Map Map 1 and 2 exist in Child (pid INFO: Map 1 and 2 exist in Child (pid 12). 	Okay.
-INFO: Map 1 and 2 e1 and 2 exist in Ch11). 	Okax1ild (pid 1y.
-i and and 2 exist in Child (pi). 	Okay.
-st in Child (pid  2 exist in Child (pid 4). 	Od 5). 	Okay.
-t in Child (pid 7). 	Okay.
-ist in Child (pid 8). 	Okay.
-hild (0). 	Okay.
-13). 	Okay.kay.
-pid 
-9). 	Okay.
+INFO:INFO: Map 1 and 2 exist in Child (pid 5). 	Okay.
+I Map 1 NFO: Map 1 and 2 exist in ChINFO:and 2 exist in Child (pid 4). 	Okay.
+ild (pid 6). 	Okay.
+ Map 1 and 2 exist in Child (pid 7). 	Okay.
+INFO: Map 1 and 2 exist in Child (pINFO: Map 1 and 2 eINFO: Map 1 and 2 exist in Chilid 8). xist in Child (pid d (pid 10). 	OkaINFO: Map 1	O9). 	Okay.
+ and 2 kay.
+y.
+eINFO: Map 1 and 2x exist in ChiINFOisld (pid 12).:t in Chi 	Okay.
+ ld (pid 11). 	Okay.
+Map 1 and 2 exist in Child (pid 13). 	Okay.
 INFO: Map 1 and 2 exist in Parent (pid 3). 	Okay.
 [0;32mSUCCESS:[0m TEST_18	 PASSED
 
@@ -1469,9 +1472,9 @@ Fork+EDIT: Both parent and child can see each other's edits in anonymous maps
 Running xv6 user progam /home/wadhawan/private/cs537/cs537-p5/tests/ctests/test_19.c
 DEBUG: Copying header file to project path
 Trying to build project using make
-/tmp/tmpgpwkfd3r/p/Makefile
-/tmp/tmpgpwkfd3r/p/Makefile.test
 make xv6.img fs.img
+/tmp/tmpfstpw688/p/Makefile
+/tmp/tmpfstpw688/p/Makefile.test
 make: 'xv6.img' is up to date.
 make: 'fs.img' is up to date.
 make qemu-nox CPUS=1
@@ -1528,8 +1531,8 @@ Running xv6 user progam /home/wadhawan/private/cs537/cs537-p5/tests/ctests/test_
 DEBUG: Copying header file to project path
 Trying to build project using make
 make xv6.img fs.img
-/tmp/tmpgpwkfd3r/p/Makefile
-/tmp/tmpgpwkfd3r/p/Makefile.test
+/tmp/tmpfstpw688/p/Makefile
+/tmp/tmpfstpw688/p/Makefile.test
 make: 'xv6.img' is up to date.
 make: 'fs.img' is up to date.
 make qemu-nox CPUS=1
@@ -1587,8 +1590,8 @@ Running xv6 user progam /home/wadhawan/private/cs537/cs537-p5/tests/ctests/test_
 DEBUG: Copying header file to project path
 Trying to build project using make
 make xv6.img fs.img
-/tmp/tmpgpwkfd3r/p/Makefile
-/tmp/tmpgpwkfd3r/p/Makefile.test
+/tmp/tmpfstpw688/p/Makefile
+/tmp/tmpfstpw688/p/Makefile.test
 make: 'xv6.img' is up to date.
 make: 'fs.img' is up to date.
 make qemu-nox CPUS=1
@@ -1608,7 +1611,8 @@ iPXE (https://ipxe.org) 00:03.0 CA00 PCI2.10 PnP PMM+1FF8B4A0+1FECB4A0 CA00
 Press Ctrl-B to configure iPXE (PCI 00:03.0)...                                                                               
 
 
-Booting from Hard Disk..xv6...
+Booting from Hard Disk...
+xv6...
 cpu0: starting 0
 sb: size 1000 nblocks 941 ninodes 200 nlog 30 logstart 2 inodestart 32 bmap start 58
 init: starting sh
@@ -1635,8 +1639,8 @@ Running xv6 user progam /home/wadhawan/private/cs537/cs537-p5/tests/ctests/test_
 DEBUG: Copying header file to project path
 Trying to build project using make
 make xv6.img fs.img
-/tmp/tmpgpwkfd3r/p/Makefile
-/tmp/tmpgpwkfd3r/p/Makefile.test
+/tmp/tmpfstpw688/p/Makefile
+/tmp/tmpfstpw688/p/Makefile.test
 make: 'xv6.img' is up to date.
 make: 'fs.img' is up to date.
 make qemu-nox CPUS=1
@@ -1656,7 +1660,8 @@ iPXE (https://ipxe.org) 00:03.0 CA00 PCI2.10 PnP PMM+1FF8B4A0+1FECB4A0 CA00
 Press Ctrl-B to configure iPXE (PCI 00:03.0)...                                                                               
 
 
-Booting from Hard Disk..xv6...
+Booting from Hard Disk...
+xv6...
 cpu0: starting 0
 sb: size 1000 nblocks 941 ninodes 200 nlog 30 logstart 2 inodestart 32 bmap start 58
 init: starting sh
@@ -1667,82 +1672,32 @@ tester
 TEST_22
 Parent: sum = 1012960
 INFO: Parent: arr pa = 0xDFC0000
-Child: Child: sum = 1012960
-INFO: ChilChild: sum = sum = 101d: arr 1012960
-INFO:2960
-INFO: Child:pa =  Child: arrChild: sum 0xDE7E000
-[0;31mERROR: [0mParent and child have different  pa = 0xDE2D000
-[0;31mERROR: [0mParent and child have different pa
-
-[0;31mFA= 1012960
-INFO: Child: Child: sum = 1012960
-IL:[0m TEarr pa = 0xDDDC000
-INFO: Child: arr ST_22	 FAILED (pid 6[0;31mERROR: [0mParent pa = 0xDD8B000
-)
-
-and child ha[0;31mERvROR: [0mParChild: sum = Child: sum = 1e different pa
-
-10012960
-I[0;31mFA12960
-INFONFO: Child: arr Child: sum = 1012960
-IL:[0m TEST_22	 FAILED:INFO: Child: arr pa = 0xDC98000
-[0;31mERROR: [ (pid 7)
-
-ent and child have different pa
-
-[0; Child: arr pa = 0xDD3A000
-[0;31mERROR: [0mpa = 0xDCE9000
-[0;31mERROR: [0mPa0mParent and child have different pa
-
-[0;31mFAIL:[0m TEST_22	 FAILED (pid 11)
 Child: sum = 1012960
-INFO: Child: arr pa = 0xChild: sum = 1012960
-INFO: Child: arr pa = 0xDBF6000
-[0;31mERROR: [0mParent and c arr pa = 0xDECF000
-[0;31mERROR: [
-DC47000
-hild have 0[0;31mEdifferent pa
-
-mParRROR: [0m[0;31mFAIL:[0m ent anpa
-
-Parent and child have different d child ha[0;31mFAIL:[0m TEST_22pa
-
-ve different pa	 FAILED (pid 5)
-31m[0;31mFAIL:[0m TEST_TEST_22	 FAILED (p
-FAParent and crent and child hid 13)
-
-
-
-IL:[0mhild have differave different pa
-
-[0;31mFAIL:ent pa
-
-[0;31mFAIL:[022	 FAILED (pid 12)
-
-[[0;31mFAIL:[0m T0m TEST_22	 FAILED (pid 4)
-
- EST_22	 FAIm TEST_22	 FAILED (pid 10)
-TEST_22	 FLED (pid 9)
-
-AILED (pid 8)
-
-
+INFO: Child: arr pa = 0xDFC0000
+Child: sum = 1012960
+INFO: Child:Child: sum = 1012960
+INFO: Child: arr pa = 0xDFC0000
+Child: sum = 101296 arr pa = 0xDFC0000
+0
+INFO: Child: arr pa = 0xDFC0000Child: sum = 1012960
+INFO: Child: arr pa = 0xDFC0000
+ChildChild: sum = 1012960
+INFO: Child: arr pa = 0xDFC0000
+Child:
+: sum = 1012960
+INFO: C sum = 10Child: sum = 11012960
+INFOChild:hild: arr2960 
+sum = 1012960
+ pa = 0xDFC00INFO: Child: arr pa = 0xD: CINFO: Chi0FC0000
+hld: arr pa = 0xDFC0000
+0
+ild: arr pa = 0xDFC0000
 [0;32mSUCCESS:[0m TEST_22	 PASSED
 
 $ 
-Cleaning up after failure
-Trying to clean project using make clean
-make clean
-rm -f *.tex *.dvi *.idx *.aux *.log *.ind *.ilg \
-*.o *.d *.asm *.sym vectors.S bootblock entryother \
-initcode initcode.out kernel xv6.img fs.img kernelmemfs \
-xv6memfs.img mkfs .gdbinit \
-_cat _echo _forktest _grep _init _kill _ln _ls _mkdir _rm _sh _stressfs _usertests _wc _zombie _test 
 
-
-test test_22 FAILED (0 of 1)
+test test_22 PASSED (1 of 1)
  (COW: allocated array has same pa in parent and child before modification)
- tester failed
 
 starting test_23
 
@@ -1756,143 +1711,10 @@ Running xv6 user progam /home/wadhawan/private/cs537/cs537-p5/tests/ctests/test_
 DEBUG: Copying header file to project path
 Trying to build project using make
 make xv6.img fs.img
-/tmp/tmpgpwkfd3r/p/Makefile
-/tmp/tmpgpwkfd3r/p/Makefile.test
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie -fno-pic -O -nostdinc -I. -c bootmain.c
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie -fno-pic -nostdinc -I. -c bootasm.S
-ld -m    elf_i386 -N -e start -Ttext 0x7C00 -o bootblock.o bootasm.o bootmain.o
-objdump -S bootblock.o > bootblock.asm
-objcopy -S -O binary -j .text bootblock.o bootblock
-./sign.pl bootblock
-boot block is 451 bytes (max 510)
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o bio.o bio.c
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o console.o console.c
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o exec.o exec.c
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o file.o file.c
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o fs.o fs.c
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o ide.o ide.c
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o ioapic.o ioapic.c
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o kalloc.o kalloc.c
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o kbd.o kbd.c
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o lapic.o lapic.c
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o log.o log.c
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o main.o main.c
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o mp.o mp.c
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o picirq.o picirq.c
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o pipe.o pipe.c
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o proc.o proc.c
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o sleeplock.o sleeplock.c
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o spinlock.o spinlock.c
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o string.o string.c
-gcc -m32 -gdwarf-2 -Wa,-divide   -c -o swtch.o swtch.S
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o syscall.o syscall.c
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o sysfile.o sysfile.c
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o sysproc.o sysproc.c
-gcc -m32 -gdwarf-2 -Wa,-divide   -c -o trapasm.o trapasm.S
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o trap.o trap.c
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o uart.o uart.c
-./vectors.pl > vectors.S
-gcc -m32 -gdwarf-2 -Wa,-divide   -c -o vectors.o vectors.S
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o vm.o vm.c
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o wmap.o wmap.c
-gcc -m32 -gdwarf-2 -Wa,-divide   -c -o entry.o entry.S
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie -fno-pic -nostdinc -I. -c entryother.S
-ld -m    elf_i386 -N -e start -Ttext 0x7000 -o bootblockother.o entryother.o
-objcopy -S -O binary -j .text bootblockother.o entryother
-objdump -S bootblockother.o > entryother.asm
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie -nostdinc -I. -c initcode.S
-ld -m    elf_i386 -N -e start -Ttext 0 -o initcode.out initcode.o
-objcopy -S -O binary initcode.out initcode
-objdump -S initcode.o > initcode.asm
-ld -m    elf_i386 -T kernel.ld -o kernel entry.o bio.o console.o exec.o file.o fs.o ide.o ioapic.o kalloc.o kbd.o lapic.o log.o main.o mp.o picirq.o pipe.o proc.o sleeplock.o spinlock.o string.o swtch.o syscall.o sysfile.o sysproc.o trapasm.o trap.o uart.o vectors.o vm.o wmap.o  -b binary initcode entryother
-objdump -S kernel > kernel.asm
-objdump -t kernel | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$/d' > kernel.sym
-dd if=/dev/zero of=xv6.img count=10000
-10000+0 records in
-10000+0 records out
-5120000 bytes (5.1 MB, 4.9 MiB) copied, 0.128335 s, 39.9 MB/s
-dd if=bootblock of=xv6.img conv=notrunc
-1+0 records in
-1+0 records out
-512 bytes copied, 0.00032512 s, 1.6 MB/s
-dd if=kernel of=xv6.img seek=1 conv=notrunc
-435+1 records in
-435+1 records out
-223220 bytes (223 kB, 218 KiB) copied, 0.00124044 s, 180 MB/s
-gcc -Werror -Wall -o mkfs mkfs.c
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o ulib.o ulib.c
-gcc -m32 -gdwarf-2 -Wa,-divide   -c -o usys.o usys.S
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o printf.o printf.c
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o umalloc.o umalloc.c
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o cat.o cat.c
-ld -m    elf_i386 -e main -Ttext 0 -o _cat cat.o ulib.o usys.o printf.o umalloc.o
-objdump -S _cat > cat.asm
-objdump -t _cat | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$/d' > cat.sym
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o echo.o echo.c
-ld -m    elf_i386 -e main -Ttext 0 -o _echo echo.o ulib.o usys.o printf.o umalloc.o
-objdump -S _echo > echo.asm
-objdump -t _echo | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$/d' > echo.sym
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o forktest.o forktest.c
-# forktest has less library code linked in - needs to be small
-# in order to be able to max out the proc table.
-ld -m    elf_i386 -N -e main -Ttext 0 -o _forktest forktest.o ulib.o usys.o
-objdump -S _forktest > forktest.asm
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o grep.o grep.c
-ld -m    elf_i386 -e main -Ttext 0 -o _grep grep.o ulib.o usys.o printf.o umalloc.o
-objdump -S _grep > grep.asm
-objdump -t _grep | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$/d' > grep.sym
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o init.o init.c
-ld -m    elf_i386 -e main -Ttext 0 -o _init init.o ulib.o usys.o printf.o umalloc.o
-objdump -S _init > init.asm
-objdump -t _init | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$/d' > init.sym
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o kill.o kill.c
-ld -m    elf_i386 -e main -Ttext 0 -o _kill kill.o ulib.o usys.o printf.o umalloc.o
-objdump -S _kill > kill.asm
-objdump -t _kill | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$/d' > kill.sym
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o ln.o ln.c
-ld -m    elf_i386 -e main -Ttext 0 -o _ln ln.o ulib.o usys.o printf.o umalloc.o
-objdump -S _ln > ln.asm
-objdump -t _ln | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$/d' > ln.sym
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o ls.o ls.c
-ld -m    elf_i386 -e main -Ttext 0 -o _ls ls.o ulib.o usys.o printf.o umalloc.o
-objdump -S _ls > ls.asm
-objdump -t _ls | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$/d' > ls.sym
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o mkdir.o mkdir.c
-ld -m    elf_i386 -e main -Ttext 0 -o _mkdir mkdir.o ulib.o usys.o printf.o umalloc.o
-objdump -S _mkdir > mkdir.asm
-objdump -t _mkdir | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$/d' > mkdir.sym
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o rm.o rm.c
-ld -m    elf_i386 -e main -Ttext 0 -o _rm rm.o ulib.o usys.o printf.o umalloc.o
-objdump -S _rm > rm.asm
-objdump -t _rm | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$/d' > rm.sym
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o sh.o sh.c
-ld -m    elf_i386 -e main -Ttext 0 -o _sh sh.o ulib.o usys.o printf.o umalloc.o
-objdump -S _sh > sh.asm
-objdump -t _sh | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$/d' > sh.sym
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o stressfs.o stressfs.c
-ld -m    elf_i386 -e main -Ttext 0 -o _stressfs stressfs.o ulib.o usys.o printf.o umalloc.o
-objdump -S _stressfs > stressfs.asm
-objdump -t _stressfs | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$/d' > stressfs.sym
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o usertests.o usertests.c
-ld -m    elf_i386 -e main -Ttext 0 -o _usertests usertests.o ulib.o usys.o printf.o umalloc.o
-objdump -S _usertests > usertests.asm
-objdump -t _usertests | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$/d' > usertests.sym
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o wc.o wc.c
-ld -m    elf_i386 -e main -Ttext 0 -o _wc wc.o ulib.o usys.o printf.o umalloc.o
-objdump -S _wc > wc.asm
-objdump -t _wc | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$/d' > wc.sym
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o zombie.o zombie.c
-ld -m    elf_i386 -e main -Ttext 0 -o _zombie zombie.o ulib.o usys.o printf.o umalloc.o
-objdump -S _zombie > zombie.asm
-objdump -t _zombie | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$/d' > zombie.sym
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o test.o test.c
-ld -m    elf_i386 -e main -Ttext 0 -o _test test.o ulib.o usys.o printf.o umalloc.o
-objdump -S _test > test.asm
-objdump -t _test | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$/d' > test.sym
-./mkfs fs.img README _cat _echo _forktest _grep _init _kill _ln _ls _mkdir _rm _sh _stressfs _usertests _wc _zombie _test 
-nmeta 59 (boot, super, log blocks 30 inode blocks 26, bitmap blocks 1) blocks 941 total 1000
-balloc: first 873 blocks have been allocated
-balloc: write bitmap block at sector 58
+/tmp/tmpfstpw688/p/Makefile
+/tmp/tmpfstpw688/p/Makefile.test
+make: 'xv6.img' is up to date.
+make: 'fs.img' is up to date.
 make qemu-nox CPUS=1
 gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o tester.o tester.c
 ld -m    elf_i386 -e main -Ttext 0 -o _tester tester.o ulib.o usys.o printf.o umalloc.o
@@ -1921,82 +1743,52 @@ tester
 TEST_23
 Parent: sum = 1012960
 INFO: Parent: arr pa = 0xDFC0000
-Child: sum = 1012960
-INFO: Child: arr pa = 0xDChild: sum = 1012960
-INFO: Child: arr pa = 0xDE7B000
-[0;31mERROR: [0mParent and child have different pChild: sum = 1012960
-INFO:Child: sECDhysical addresses
-
- Child: arr pa = 0xDE29000
-[0;31mERROR: [0mParent and child have differeum = 101Child: sum = 1012960
-[0;31mFAI2960
-INFO:INFO: Child: arr pa = 0xChild: sum = 1012960
-INFO: Child: arr pa = 0xDD33000
-[0;31mERROR: [0mPareChild: sum = 1012960
-INFO: Child: arr pa = 0xDCL:[0m TEST_23	 FAILED (pid 5)
-
-nt physical addresses
-
-[0;31mFAIL:[0m TEST_23	 FAILED (pid 6)
-
- Child: arr pa = 0xDDD7000
-DD85000
-[0;31mERROR: [0mParent and child havE1000
-[0;31mERROR: [0mParent and child have dif[0;31mERRe different physical addressnt and child have diffferent physical addresses
-
-ees
-
-[0;31mFAIL:[0m TEST_23	 FAILED (rent physical addresses
-
-[0;31mFAI[0;31mFAIL:[0m TEST_23	 FAILED (pid 8)
-pid 9)
-
-L:[0m TEST_23	 FAILED (pid 10)
-
-Child:Child: sum = 1012960
-INFO: Child:
- s arr pa = 0xDC3D000
-Child: sum = 1012960
-Ium = 1012960
-I[0;31mERROR: [0mParent andNFO: Child: arr pa = 0xDBEB000
-NFO: Child: arr p child have different physical add[0;31mERROR: [0mPar000
-[0;31mERROR: [0mParea = 0xDC8F000
-[0resses
-
-[0;31mFAIL:[0m TEST_23	 FAILED (pid 12)
-nt and chOR: [0mParent and ch;31mERRiOR: [0
-ent and child have different physical addressesild havld have different physimParent and child
-
-[0;31mFAILcal addres have different physical :[0m TEST_23	 FAILED (pid 13)
-
-eses
-
-addres different phy[0;31mFAIL:[0ses
-
-sm TEST_23	 FAILED (p[0;31mFAIL:[0ical aid 7)
-
-m TEdST_23	 FAILED (pid dresses
-
-11)
-[0;31mFAIL:[0m TEST_23	 FAILED (pid 
-4)
-
+Child: sum = 1012960Child: sChChild: umild: sum = sum = 1012960
+ChildChild: sum = 1012960
+INFO: Child: arr 
+ = 1012960
+INFO: Child1012960
+INFO: Child: arr pa = 0xDFCINFO: Child: arr pa =: sum = 1012960
+Ip 0xNFO: Child: arr pa = 0xDFC00a = 0xChild: sum = 1012960
+INFO: Child: sum = 1012960DF00
+DFC0000
+Chil
+INFOChild: sum = 1012960
+C:hild: sum = 1012960
+ ChilINFO: Child: arr pa = 0xDFC0000
+INFO: Child: arr pa = 0xDFINFO: Child:: arr pa = 0xDFC0000
+0000C0000
+Child:Child: modified sum = 501460
+INFO: Child: arr new_pa = 0xDC72000
+Child: 
+Child: modified sum = 501460
+Chid: arr pa = 0xDFC0000
+Child: modifiedd: arr pa = 0xChild: modified sum = 501460
+modified sum = 501460
+INFO: Child: arr newINFO: Child: arr new_paC0000
+INFO: Child: arr new_pa = 0xDC5E000
+_pa = 0xDC59000
+ modified sum = 50146ld: modi sum = 50146DFC0000
+Child: modifieChild: modified sum = 501460
+INF arr pa = 0xDFC0000
+0
+fied sum = 501460
+INFO: Childd sum = 501460
+INFO: Child: arrINFO: Child: arr n: arr new_pa = 0xD C70000
+0
+new_pa = 0xDE09000
+ = 0xDC68000
+ew_pa = 0xDC63000
+INFO: Child: arO: Child: arr new_pa = 0xDChild: modified sum = 501460
+r neDCD000
+INFO: Chilw_pa = 0xDC54000
+d: arr new_pa = 0xDE91000
 [0;32mSUCCESS:[0m TEST_23	 PASSED
 
 $ 
-Cleaning up after failure
-Trying to clean project using make clean
-make clean
-rm -f *.tex *.dvi *.idx *.aux *.log *.ind *.ilg \
-*.o *.d *.asm *.sym vectors.S bootblock entryother \
-initcode initcode.out kernel xv6.img fs.img kernelmemfs \
-xv6memfs.img mkfs .gdbinit \
-_cat _echo _forktest _grep _init _kill _ln _ls _mkdir _rm _sh _stressfs _usertests _wc _zombie _test 
 
-
-test test_23 FAILED (0 of 1)
+test test_23 PASSED (1 of 1)
  (COW: allocated array has diff pa in parent and child after modification)
- tester failed
 
 starting test_24
 
@@ -2010,143 +1802,10 @@ Running xv6 user progam /home/wadhawan/private/cs537/cs537-p5/tests/ctests/test_
 DEBUG: Copying header file to project path
 Trying to build project using make
 make xv6.img fs.img
-/tmp/tmpgpwkfd3r/p/Makefile
-/tmp/tmpgpwkfd3r/p/Makefile.test
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie -fno-pic -O -nostdinc -I. -c bootmain.c
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie -fno-pic -nostdinc -I. -c bootasm.S
-ld -m    elf_i386 -N -e start -Ttext 0x7C00 -o bootblock.o bootasm.o bootmain.o
-objdump -S bootblock.o > bootblock.asm
-objcopy -S -O binary -j .text bootblock.o bootblock
-./sign.pl bootblock
-boot block is 451 bytes (max 510)
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o bio.o bio.c
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o console.o console.c
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o exec.o exec.c
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o file.o file.c
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o fs.o fs.c
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o ide.o ide.c
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o ioapic.o ioapic.c
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o kalloc.o kalloc.c
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o kbd.o kbd.c
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o lapic.o lapic.c
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o log.o log.c
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o main.o main.c
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o mp.o mp.c
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o picirq.o picirq.c
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o pipe.o pipe.c
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o proc.o proc.c
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o sleeplock.o sleeplock.c
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o spinlock.o spinlock.c
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o string.o string.c
-gcc -m32 -gdwarf-2 -Wa,-divide   -c -o swtch.o swtch.S
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o syscall.o syscall.c
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o sysfile.o sysfile.c
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o sysproc.o sysproc.c
-gcc -m32 -gdwarf-2 -Wa,-divide   -c -o trapasm.o trapasm.S
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o trap.o trap.c
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o uart.o uart.c
-./vectors.pl > vectors.S
-gcc -m32 -gdwarf-2 -Wa,-divide   -c -o vectors.o vectors.S
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o vm.o vm.c
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o wmap.o wmap.c
-gcc -m32 -gdwarf-2 -Wa,-divide   -c -o entry.o entry.S
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie -fno-pic -nostdinc -I. -c entryother.S
-ld -m    elf_i386 -N -e start -Ttext 0x7000 -o bootblockother.o entryother.o
-objcopy -S -O binary -j .text bootblockother.o entryother
-objdump -S bootblockother.o > entryother.asm
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie -nostdinc -I. -c initcode.S
-ld -m    elf_i386 -N -e start -Ttext 0 -o initcode.out initcode.o
-objcopy -S -O binary initcode.out initcode
-objdump -S initcode.o > initcode.asm
-ld -m    elf_i386 -T kernel.ld -o kernel entry.o bio.o console.o exec.o file.o fs.o ide.o ioapic.o kalloc.o kbd.o lapic.o log.o main.o mp.o picirq.o pipe.o proc.o sleeplock.o spinlock.o string.o swtch.o syscall.o sysfile.o sysproc.o trapasm.o trap.o uart.o vectors.o vm.o wmap.o  -b binary initcode entryother
-objdump -S kernel > kernel.asm
-objdump -t kernel | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$/d' > kernel.sym
-dd if=/dev/zero of=xv6.img count=10000
-10000+0 records in
-10000+0 records out
-5120000 bytes (5.1 MB, 4.9 MiB) copied, 0.108678 s, 47.1 MB/s
-dd if=bootblock of=xv6.img conv=notrunc
-1+0 records in
-1+0 records out
-512 bytes copied, 0.000644463 s, 794 kB/s
-dd if=kernel of=xv6.img seek=1 conv=notrunc
-435+1 records in
-435+1 records out
-223220 bytes (223 kB, 218 KiB) copied, 0.014377 s, 15.5 MB/s
-gcc -Werror -Wall -o mkfs mkfs.c
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o ulib.o ulib.c
-gcc -m32 -gdwarf-2 -Wa,-divide   -c -o usys.o usys.S
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o printf.o printf.c
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o umalloc.o umalloc.c
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o cat.o cat.c
-ld -m    elf_i386 -e main -Ttext 0 -o _cat cat.o ulib.o usys.o printf.o umalloc.o
-objdump -S _cat > cat.asm
-objdump -t _cat | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$/d' > cat.sym
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o echo.o echo.c
-ld -m    elf_i386 -e main -Ttext 0 -o _echo echo.o ulib.o usys.o printf.o umalloc.o
-objdump -S _echo > echo.asm
-objdump -t _echo | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$/d' > echo.sym
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o forktest.o forktest.c
-# forktest has less library code linked in - needs to be small
-# in order to be able to max out the proc table.
-ld -m    elf_i386 -N -e main -Ttext 0 -o _forktest forktest.o ulib.o usys.o
-objdump -S _forktest > forktest.asm
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o grep.o grep.c
-ld -m    elf_i386 -e main -Ttext 0 -o _grep grep.o ulib.o usys.o printf.o umalloc.o
-objdump -S _grep > grep.asm
-objdump -t _grep | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$/d' > grep.sym
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o init.o init.c
-ld -m    elf_i386 -e main -Ttext 0 -o _init init.o ulib.o usys.o printf.o umalloc.o
-objdump -S _init > init.asm
-objdump -t _init | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$/d' > init.sym
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o kill.o kill.c
-ld -m    elf_i386 -e main -Ttext 0 -o _kill kill.o ulib.o usys.o printf.o umalloc.o
-objdump -S _kill > kill.asm
-objdump -t _kill | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$/d' > kill.sym
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o ln.o ln.c
-ld -m    elf_i386 -e main -Ttext 0 -o _ln ln.o ulib.o usys.o printf.o umalloc.o
-objdump -S _ln > ln.asm
-objdump -t _ln | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$/d' > ln.sym
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o ls.o ls.c
-ld -m    elf_i386 -e main -Ttext 0 -o _ls ls.o ulib.o usys.o printf.o umalloc.o
-objdump -S _ls > ls.asm
-objdump -t _ls | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$/d' > ls.sym
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o mkdir.o mkdir.c
-ld -m    elf_i386 -e main -Ttext 0 -o _mkdir mkdir.o ulib.o usys.o printf.o umalloc.o
-objdump -S _mkdir > mkdir.asm
-objdump -t _mkdir | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$/d' > mkdir.sym
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o rm.o rm.c
-ld -m    elf_i386 -e main -Ttext 0 -o _rm rm.o ulib.o usys.o printf.o umalloc.o
-objdump -S _rm > rm.asm
-objdump -t _rm | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$/d' > rm.sym
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o sh.o sh.c
-ld -m    elf_i386 -e main -Ttext 0 -o _sh sh.o ulib.o usys.o printf.o umalloc.o
-objdump -S _sh > sh.asm
-objdump -t _sh | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$/d' > sh.sym
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o stressfs.o stressfs.c
-ld -m    elf_i386 -e main -Ttext 0 -o _stressfs stressfs.o ulib.o usys.o printf.o umalloc.o
-objdump -S _stressfs > stressfs.asm
-objdump -t _stressfs | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$/d' > stressfs.sym
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o usertests.o usertests.c
-ld -m    elf_i386 -e main -Ttext 0 -o _usertests usertests.o ulib.o usys.o printf.o umalloc.o
-objdump -S _usertests > usertests.asm
-objdump -t _usertests | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$/d' > usertests.sym
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o wc.o wc.c
-ld -m    elf_i386 -e main -Ttext 0 -o _wc wc.o ulib.o usys.o printf.o umalloc.o
-objdump -S _wc > wc.asm
-objdump -t _wc | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$/d' > wc.sym
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o zombie.o zombie.c
-ld -m    elf_i386 -e main -Ttext 0 -o _zombie zombie.o ulib.o usys.o printf.o umalloc.o
-objdump -S _zombie > zombie.asm
-objdump -t _zombie | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$/d' > zombie.sym
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o test.o test.c
-ld -m    elf_i386 -e main -Ttext 0 -o _test test.o ulib.o usys.o printf.o umalloc.o
-objdump -S _test > test.asm
-objdump -t _test | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$/d' > test.sym
-./mkfs fs.img README _cat _echo _forktest _grep _init _kill _ln _ls _mkdir _rm _sh _stressfs _usertests _wc _zombie _test 
-nmeta 59 (boot, super, log blocks 30 inode blocks 26, bitmap blocks 1) blocks 941 total 1000
-balloc: first 873 blocks have been allocated
-balloc: write bitmap block at sector 58
+/tmp/tmpfstpw688/p/Makefile
+/tmp/tmpfstpw688/p/Makefile.test
+make: 'xv6.img' is up to date.
+make: 'fs.img' is up to date.
 make qemu-nox CPUS=1
 gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o tester.o tester.c
 ld -m    elf_i386 -e main -Ttext 0 -o _tester tester.o ulib.o usys.o printf.o umalloc.o
@@ -2175,82 +1834,62 @@ tester
 TEST_24
 Parent: sum = 1012960
 INFO: Parent: arr pa = 0xDFC0000
-Child: sum = Child:1 sum = 101296C012960
-INFO: Child: 0
-INFO: Child: arr pa = 0xDE7B000
-[0;31hilarr pa = 0xDECD000
-[0;31mERROR: [0mParent and child have different physicd: sum = 1012960
-INChild: mERRORFO: Child: arr psum = 1012960
-Ch:INFO: Child: arr paild [0 = 0xDDD7000
-: sum = 1012960mParent a[0;31mERROR: 
-INnd ch[0mParent and chiFO: Chilild have different physical addresses
-
-ld have did[0;31mFAIL:fferent physica: arr p[0m TEST_24	 FAILED (pid 4la = 0xDD)
- a85000
-
-addres[0;31mERlses
-
-R addresses
-OR: [0mParent and c
-[0;31mFAIL[0;31mFAIL:[0m hild have different physical:[0m TETEST_24	 FAIL addresses
-
-ST_2ED [0;31mFAIL4	 FAILED (pid (pid 7)
-
-:5)
-
-[0m TESChild: aT_24	 FAILEDsum = 1  (pid 012960
-I= 0xDE29000
-8NFO: Child: arr pa = 0xDD33000
-[0;31mERROR: [0mParent and childChild: sum = Child:[0;31mERROR: [0mParent and child have different)
-
- h sum = 1012960
-Iave di1012960
-INFO: Childfferent physica:l addresses
-
-NFO: Child: arr  arr pa[0;31mFAIL:[0m TEST_24	 FAILEDpa = 0xDCE1 = Child: sum = 1000xDC8F000
-012960
-INFO: 0[0;31mERROChild: arr pa Child: sum =  physical a
-[0;31mERROR: [0mP= 0xDC3D000
-[0;31ddresses
-
-arent and child have dimfferent physical addresses
-
-[0;31mFAIL:[0m TEST_24	 ERROR: [0mP[0;31mFAIL:[0m TEST (pid 9)
-FAILED (pid arent and child have different physical addresses
-
-R: [0mParent
-[10)
- and child have different physical add0;31mFAIL:[0m TEST_24	 F101A2960
-INFO: Child:
-resseILED (pid 12)
-
- arr pa = 0xDBEB0_24	 FAILED s
-
-00
-([0;31mFAIL:[0;31mERROR: [0mParent pid 6)
-[and child have different phy
-0m TEST_24	 FAILED sical address(pid 11)
-
-es
-
-[0;31mFAIL:[0m TEST_24	 FAILED (pid 13)
-
+Child: sum ChChild: sum = 1012960
+=INF 1ild: sum = 1012960
+INFO: Child: arr pa = 0xD0O: Child: aFrr pa C0000
+Child: sum 1296= 0xDChil= 1012960
+INFChild: sum = 101Od: sum = 50146: Child: a290
+INFO: Child: arrrr pa60
+INFO: Child: arr pa = new_pa = 0xDC72000
+ = 0xDFC0000
+ 0xDFC0000
+Child: sum = 501460
+Child: sum = 1012960
+INFO: Child: arr pa = 0xDFC0000
+Child:Child: sum = 1012960
+INFO: Child: arr pa = 0xDFC0000
+Child: sum = 501460
+INFO: Child: arr new_pa = 0xDC5E000
+IINFO: Child sz 0xF000
+ChildINFO: Chil sum = 501460
+NFO: Child sz 0x: sum = 501460
+IF000
+Child: sum = 10Child: sum = 1012960
+INFO: ChildINFO: Child: arr pa = N: arr new_p0xDFC0000
+FO: Childa = 0xDC63000
+IC: arr new_pa = 0xDC6D000
+INFO: hild: sum = 501460
+INFO: Child sz 0xF0Child sz 0xF0001296NFO: Child: arr ne00
+d0
+w_p:INFO: Child: arra arr new_pa = 0xDC6 pa  = 0xDC5F000
+I8000=NFO: Child sz 0
+I 0xDFC0000
+xNFO: Child sz 0ChildF000
+Child: sum x: su= 1012960
+IF000
+m = 501460
+INFO: Child: arr N
+nFO: Child: arr pa = 0xDFC0000
+0
+IFew_pa = 0xDC64000
+INFO:Child: sNFO: Child: arr pa = 0xDFC000C0000
+Cum = 501460
+0
+Child: suINFO: Child: ahild: sum = 501460
+INFO: Chm = 501460
+INFO: Ch Child rr new_pa = 0ild: arr new_pisz 0xF000
+xDDa = 0xDD8Cld: arrC5000
+INFO000
+I new: Child sz 0xF000
+NF_pa = 0xDC68O: Child sz 000
+0xINFO:F000
+ Child sz 0xF000
 [0;32mSUCCESS:[0m TEST_24	 PASSED
 
 $ 
-Cleaning up after failure
-Trying to clean project using make clean
-make clean
-rm -f *.tex *.dvi *.idx *.aux *.log *.ind *.ilg \
-*.o *.d *.asm *.sym vectors.S bootblock entryother \
-initcode initcode.out kernel xv6.img fs.img kernelmemfs \
-xv6memfs.img mkfs .gdbinit \
-_cat _echo _forktest _grep _init _kill _ln _ls _mkdir _rm _sh _stressfs _usertests _wc _zombie _test 
 
-
-test test_24 FAILED (0 of 1)
+test test_24 PASSED (1 of 1)
  (COW: kfreeing child's page does not affect parent's page in COW)
- tester failed
 
 starting test_25
 
@@ -2264,143 +1903,10 @@ Running xv6 user progam /home/wadhawan/private/cs537/cs537-p5/tests/ctests/test_
 DEBUG: Copying header file to project path
 Trying to build project using make
 make xv6.img fs.img
-/tmp/tmpgpwkfd3r/p/Makefile
-/tmp/tmpgpwkfd3r/p/Makefile.test
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie -fno-pic -O -nostdinc -I. -c bootmain.c
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie -fno-pic -nostdinc -I. -c bootasm.S
-ld -m    elf_i386 -N -e start -Ttext 0x7C00 -o bootblock.o bootasm.o bootmain.o
-objdump -S bootblock.o > bootblock.asm
-objcopy -S -O binary -j .text bootblock.o bootblock
-./sign.pl bootblock
-boot block is 451 bytes (max 510)
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o bio.o bio.c
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o console.o console.c
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o exec.o exec.c
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o file.o file.c
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o fs.o fs.c
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o ide.o ide.c
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o ioapic.o ioapic.c
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o kalloc.o kalloc.c
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o kbd.o kbd.c
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o lapic.o lapic.c
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o log.o log.c
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o main.o main.c
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o mp.o mp.c
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o picirq.o picirq.c
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o pipe.o pipe.c
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o proc.o proc.c
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o sleeplock.o sleeplock.c
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o spinlock.o spinlock.c
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o string.o string.c
-gcc -m32 -gdwarf-2 -Wa,-divide   -c -o swtch.o swtch.S
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o syscall.o syscall.c
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o sysfile.o sysfile.c
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o sysproc.o sysproc.c
-gcc -m32 -gdwarf-2 -Wa,-divide   -c -o trapasm.o trapasm.S
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o trap.o trap.c
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o uart.o uart.c
-./vectors.pl > vectors.S
-gcc -m32 -gdwarf-2 -Wa,-divide   -c -o vectors.o vectors.S
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o vm.o vm.c
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o wmap.o wmap.c
-gcc -m32 -gdwarf-2 -Wa,-divide   -c -o entry.o entry.S
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie -fno-pic -nostdinc -I. -c entryother.S
-ld -m    elf_i386 -N -e start -Ttext 0x7000 -o bootblockother.o entryother.o
-objcopy -S -O binary -j .text bootblockother.o entryother
-objdump -S bootblockother.o > entryother.asm
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie -nostdinc -I. -c initcode.S
-ld -m    elf_i386 -N -e start -Ttext 0 -o initcode.out initcode.o
-objcopy -S -O binary initcode.out initcode
-objdump -S initcode.o > initcode.asm
-ld -m    elf_i386 -T kernel.ld -o kernel entry.o bio.o console.o exec.o file.o fs.o ide.o ioapic.o kalloc.o kbd.o lapic.o log.o main.o mp.o picirq.o pipe.o proc.o sleeplock.o spinlock.o string.o swtch.o syscall.o sysfile.o sysproc.o trapasm.o trap.o uart.o vectors.o vm.o wmap.o  -b binary initcode entryother
-objdump -S kernel > kernel.asm
-objdump -t kernel | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$/d' > kernel.sym
-dd if=/dev/zero of=xv6.img count=10000
-10000+0 records in
-10000+0 records out
-5120000 bytes (5.1 MB, 4.9 MiB) copied, 0.111273 s, 46.0 MB/s
-dd if=bootblock of=xv6.img conv=notrunc
-1+0 records in
-1+0 records out
-512 bytes copied, 0.00352913 s, 145 kB/s
-dd if=kernel of=xv6.img seek=1 conv=notrunc
-435+1 records in
-435+1 records out
-223220 bytes (223 kB, 218 KiB) copied, 0.00854841 s, 26.1 MB/s
-gcc -Werror -Wall -o mkfs mkfs.c
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o ulib.o ulib.c
-gcc -m32 -gdwarf-2 -Wa,-divide   -c -o usys.o usys.S
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o printf.o printf.c
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o umalloc.o umalloc.c
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o cat.o cat.c
-ld -m    elf_i386 -e main -Ttext 0 -o _cat cat.o ulib.o usys.o printf.o umalloc.o
-objdump -S _cat > cat.asm
-objdump -t _cat | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$/d' > cat.sym
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o echo.o echo.c
-ld -m    elf_i386 -e main -Ttext 0 -o _echo echo.o ulib.o usys.o printf.o umalloc.o
-objdump -S _echo > echo.asm
-objdump -t _echo | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$/d' > echo.sym
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o forktest.o forktest.c
-# forktest has less library code linked in - needs to be small
-# in order to be able to max out the proc table.
-ld -m    elf_i386 -N -e main -Ttext 0 -o _forktest forktest.o ulib.o usys.o
-objdump -S _forktest > forktest.asm
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o grep.o grep.c
-ld -m    elf_i386 -e main -Ttext 0 -o _grep grep.o ulib.o usys.o printf.o umalloc.o
-objdump -S _grep > grep.asm
-objdump -t _grep | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$/d' > grep.sym
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o init.o init.c
-ld -m    elf_i386 -e main -Ttext 0 -o _init init.o ulib.o usys.o printf.o umalloc.o
-objdump -S _init > init.asm
-objdump -t _init | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$/d' > init.sym
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o kill.o kill.c
-ld -m    elf_i386 -e main -Ttext 0 -o _kill kill.o ulib.o usys.o printf.o umalloc.o
-objdump -S _kill > kill.asm
-objdump -t _kill | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$/d' > kill.sym
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o ln.o ln.c
-ld -m    elf_i386 -e main -Ttext 0 -o _ln ln.o ulib.o usys.o printf.o umalloc.o
-objdump -S _ln > ln.asm
-objdump -t _ln | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$/d' > ln.sym
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o ls.o ls.c
-ld -m    elf_i386 -e main -Ttext 0 -o _ls ls.o ulib.o usys.o printf.o umalloc.o
-objdump -S _ls > ls.asm
-objdump -t _ls | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$/d' > ls.sym
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o mkdir.o mkdir.c
-ld -m    elf_i386 -e main -Ttext 0 -o _mkdir mkdir.o ulib.o usys.o printf.o umalloc.o
-objdump -S _mkdir > mkdir.asm
-objdump -t _mkdir | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$/d' > mkdir.sym
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o rm.o rm.c
-ld -m    elf_i386 -e main -Ttext 0 -o _rm rm.o ulib.o usys.o printf.o umalloc.o
-objdump -S _rm > rm.asm
-objdump -t _rm | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$/d' > rm.sym
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o sh.o sh.c
-ld -m    elf_i386 -e main -Ttext 0 -o _sh sh.o ulib.o usys.o printf.o umalloc.o
-objdump -S _sh > sh.asm
-objdump -t _sh | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$/d' > sh.sym
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o stressfs.o stressfs.c
-ld -m    elf_i386 -e main -Ttext 0 -o _stressfs stressfs.o ulib.o usys.o printf.o umalloc.o
-objdump -S _stressfs > stressfs.asm
-objdump -t _stressfs | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$/d' > stressfs.sym
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o usertests.o usertests.c
-ld -m    elf_i386 -e main -Ttext 0 -o _usertests usertests.o ulib.o usys.o printf.o umalloc.o
-objdump -S _usertests > usertests.asm
-objdump -t _usertests | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$/d' > usertests.sym
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o wc.o wc.c
-ld -m    elf_i386 -e main -Ttext 0 -o _wc wc.o ulib.o usys.o printf.o umalloc.o
-objdump -S _wc > wc.asm
-objdump -t _wc | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$/d' > wc.sym
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o zombie.o zombie.c
-ld -m    elf_i386 -e main -Ttext 0 -o _zombie zombie.o ulib.o usys.o printf.o umalloc.o
-objdump -S _zombie > zombie.asm
-objdump -t _zombie | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$/d' > zombie.sym
-gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o test.o test.c
-ld -m    elf_i386 -e main -Ttext 0 -o _test test.o ulib.o usys.o printf.o umalloc.o
-objdump -S _test > test.asm
-objdump -t _test | sed '1,/SYMBOL TABLE/d; s/ .* / /; /^$/d' > test.sym
-./mkfs fs.img README _cat _echo _forktest _grep _init _kill _ln _ls _mkdir _rm _sh _stressfs _usertests _wc _zombie _test 
-nmeta 59 (boot, super, log blocks 30 inode blocks 26, bitmap blocks 1) blocks 941 total 1000
-balloc: first 873 blocks have been allocated
-balloc: write bitmap block at sector 58
+/tmp/tmpfstpw688/p/Makefile
+/tmp/tmpfstpw688/p/Makefile.test
+make: 'xv6.img' is up to date.
+make: 'fs.img' is up to date.
 make qemu-nox CPUS=1
 gcc -fno-pic -static -fno-builtin -fno-strict-aliasing -O2 -Wall -MD -ggdb -m32 -Werror -fno-omit-frame-pointer -fno-stack-protector -fno-pie -no-pie   -c -o tester.o tester.c
 ld -m    elf_i386 -e main -Ttext 0 -o _tester tester.o ulib.o usys.o printf.o umalloc.o
@@ -2428,24 +1934,13 @@ tester
 
 TEST_25
 Parent: sum = 0
-[0;31mERROR: [0mfork() failed
-
-[0;31mFAIL:[0m TEST_25	 FAILED (pid 3)
+Child: sum = 0
+[0;32mSUCCESS:[0m TEST_25	 PASSED
 
 $ 
-Cleaning up after failure
-Trying to clean project using make clean
-make clean
-rm -f *.tex *.dvi *.idx *.aux *.log *.ind *.ilg \
-*.o *.d *.asm *.sym vectors.S bootblock entryother \
-initcode initcode.out kernel xv6.img fs.img kernelmemfs \
-xv6memfs.img mkfs .gdbinit \
-_cat _echo _forktest _grep _init _kill _ln _ls _mkdir _rm _sh _stressfs _usertests _wc _zombie _test 
 
-
-test test_25 FAILED (0 of 1)
+test test_25 PASSED (1 of 1)
  (COW+STRESS: static parent arr 50000 pages, can't fork child without COW)
- tester failed
 
 **********************************************************************
 Summary:
@@ -2515,22 +2010,18 @@ test test_20 PASSED (1 of 1)
 test test_21 PASSED (1 of 1)
  (ELF: fix permissions of ELF pages)
 
-test test_22 FAILED (0 of 1)
+test test_22 PASSED (1 of 1)
  (COW: allocated array has same pa in parent and child before modification)
- tester failed
 
-test test_23 FAILED (0 of 1)
+test test_23 PASSED (1 of 1)
  (COW: allocated array has diff pa in parent and child after modification)
- tester failed
 
-test test_24 FAILED (0 of 1)
+test test_24 PASSED (1 of 1)
  (COW: kfreeing child's page does not affect parent's page in COW)
- tester failed
 
-test test_25 FAILED (0 of 1)
+test test_25 PASSED (1 of 1)
  (COW+STRESS: static parent arr 50000 pages, can't fork child without COW)
- tester failed
 
-Passed 22 of 26 tests.
-Overall 22 of 26
-Points 21 of 25
+Passed 26 of 26 tests.
+Overall 26 of 26
+Points 25 of 25
