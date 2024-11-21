@@ -333,7 +333,7 @@ copyuvm(pde_t *pgdir, uint sz)
   pde_t *d;
   pte_t *pte;
   uint pa, i, flags;
-  char *mem;
+  //char *mem;
 
   if((d = setupkvm()) == 0)
     return 0;
@@ -342,16 +342,30 @@ copyuvm(pde_t *pgdir, uint sz)
       panic("copyuvm: pte should exist");
     if(!(*pte & PTE_P))
       panic("copyuvm: page not present");
+
     pa = PTE_ADDR(*pte);
     flags = PTE_FLAGS(*pte);
-    if((mem = kalloc()) == 0)
-      goto bad;
-    memmove(mem, (char*)P2V(pa), PGSIZE);
-    if(mappages(d, (void*)i, PGSIZE, V2P(mem), flags) < 0) {
-      kfree(mem);
+
+    // If page is writable, mark it as COW
+    if(flags & PTE_W) {
+      // Clear writable bit and set COW bit in both parent and child
+      *pte &= ~PTE_W;
+      *pte |= PTE_PW;  // Custom bit to indicate page was writable
+      flags = PTE_FLAGS(*pte);
+    }
+
+    // if((mem = kalloc()) == 0)
+    //   goto bad;
+    // memmove(mem, (char*)P2V(pa), PGSIZE);
+
+    if(mappages(d, (void*)i, PGSIZE, pa, flags) < 0) {
+      //kfree(mem);
       goto bad;
     }
+
+    inc_ref(pa);
   }
+  lcr3(V2P(pgdir));  // Flush TLB for parent
   return d;
 
 bad:

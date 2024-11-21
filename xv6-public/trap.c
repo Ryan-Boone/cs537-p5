@@ -62,10 +62,10 @@ trap(struct trapframe *tf)
     int cow_va = PGROUNDDOWN(failed_addr);
     pte_t *cow_pte = getwalkpgdir(pgdir, (void *)cow_va, 0);
     //Check first of the addr is previously written bit
-    if(*cow_pte != 0 && (*cow_pte & PTE_P) != 0 && (*cow_pte & PTE_PW) != 0)
+    if(cow_pte && (*cow_pte & PTE_P) && (*cow_pte & PTE_PW))
     {
       //Check the reference count
-      int cow_pa = PTE_ADDR(*cow_pte);
+      uint cow_pa = PTE_ADDR(*cow_pte);
       if(get_ref_count(cow_pa) > 1)
       { 
         //Make a new page 
@@ -74,14 +74,22 @@ trap(struct trapframe *tf)
         {
           //KILL PROCESS
           kill(myproc()->pid);
+          break;
         }
-        *cow_pte &= ~PTE_P;
-        *cow_pte |= PTE_W;
-        uint flags = PTE_FLAGS(*cow_pte);
+        
         //copy contents from cow_va to mem
         memmove(mem, (char*)P2V(cow_pa), PGSIZE);
+
+        uint flags = PTE_FLAGS(*cow_pte);
+        flags |= PTE_W;     // Make writable
+        flags &= ~PTE_PW;   // Clear COW bit
+        flags |= PTE_U;     // Make sure user bit is set
+
+        // Clear present bit while remapping
+        *cow_pte &= ~PTE_P;
+
         //Putting new page into processes pgdir
-        if(getmappages(pgdir, (void*)cow_va, PGSIZE, V2P(mem), flags) != 0)
+        if(getmappages(pgdir, (void*)cow_va, PGSIZE, V2P(mem), flags) < 0)
         {
           //Kill process
           kill(myproc()->pid);
@@ -92,9 +100,11 @@ trap(struct trapframe *tf)
       else //No other reference than the current page so no need to copy the current page
       {
         *cow_pte |= PTE_W;
+        *cow_pte &= ~PTE_PW;
         lcr3(V2P(pgdir)); 
       }
       valid_addr = 1;
+      break;
     }
 
     
